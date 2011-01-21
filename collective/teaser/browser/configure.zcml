@@ -1,0 +1,17 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+	xmlns:plone="http://namespaces.plone.org/plone"
+    i18n_domain="collective.teaser">
+
+    <plone:portlet
+        name="collective.teaser.teaser_portlet"
+        interface=".common.ITeaserPortlet"
+        assignment=".common.Assignment"
+        renderer=".common.Renderer"
+        addview=".common.AddForm"
+        editview=".common.EditForm"
+        />
+
+</configure>
+
