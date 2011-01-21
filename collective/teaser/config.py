@@ -1,4 +1,5 @@
 PROJECTNAME = "collective.teaser"
+DEFAULT_IMPORTANCE = 3
 ADD_PERMISSIONS = {
     "Teaser"        : "collective.teaser: Add Teaser",
 }
