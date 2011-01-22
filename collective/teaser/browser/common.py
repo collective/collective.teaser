@@ -8,14 +8,19 @@ from plone.app.portlets.portlets import base
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 
+from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
 
 class ITeaserPortlet(IPortletDataProvider):
     importance_levels = schema.List(
             title=_(u'Importance Levels'),
             description=_(u'Select which importance levels the portlet should show.'),
-            default=None,
-            required=True)
+            default=DEFAULT_IMPORTANCE,
+            required=True,
+            value_type=schema.Choice(
+                vocabulary="collective.teaser.ImportanceVocabulary"
+                )
+            )
     image_size = schema.List(
             title=_(u'Image Size'),
             description=_(u'Select, which image scale should be used for the portlet.'),
