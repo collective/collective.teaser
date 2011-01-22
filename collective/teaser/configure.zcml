@@ -13,6 +13,10 @@
       component=".config.ImportanceVocabulary"
       name="collective.teaser.ImportanceVocabulary"
   />
+  <utility
+      component=".config.ImageScaleVocabulary"
+      name="collective.teaser.ImageScaleVocabulary"
+  />
 
   <genericsetup:registerProfile
       name="default"

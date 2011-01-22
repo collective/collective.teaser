@@ -25,7 +25,11 @@ class ITeaserPortlet(IPortletDataProvider):
             title=_(u'Image Size'),
             description=_(u'Select, which image scale should be used for the portlet.'),
             required=True,
-            default=None)
+            default=None,
+            value_type=schema.Choice(
+                vocabulary="collective.teaser.ImageScaleVocabulary"
+                )
+            )
     prefer_altimage = schema.Bool(
         title=_(u'Prefer alternative image'),
         description=_(u'If an alternative image is defined for the teaser,'\
