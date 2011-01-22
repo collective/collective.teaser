@@ -12,24 +12,24 @@ from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
 
 class ITeaserPortlet(IPortletDataProvider):
+
     importance_levels = schema.List(
             title=_(u'Importance Levels'),
             description=_(u'Select which importance levels the portlet should show.'),
-            default=DEFAULT_IMPORTANCE,
+            default=[DEFAULT_IMPORTANCE,],
             required=True,
             value_type=schema.Choice(
                 vocabulary="collective.teaser.ImportanceVocabulary"
                 )
             )
-    image_size = schema.List(
+
+    image_size = schema.Choice(
             title=_(u'Image Size'),
             description=_(u'Select, which image scale should be used for the portlet.'),
             required=True,
             default=None,
-            value_type=schema.Choice(
-                vocabulary="collective.teaser.ImageScaleVocabulary"
-                )
-            )
+            vocabulary="collective.teaser.ImageScaleVocabulary")
+
     prefer_altimage = schema.Bool(
         title=_(u'Prefer alternative image'),
         description=_(u'If an alternative image is defined for the teaser,'\
@@ -37,6 +37,18 @@ class ITeaserPortlet(IPortletDataProvider):
                 'e.g. portrait instead of landscape.'),
         default=False)
 
+    show_title = schema.Bool(
+        title=_(u'Show the teasers title'),
+        description=_(u'Show the title of the teaser which is displayed.'\
+                'Note, that text defined in the teaser is always displayed,'\
+                'if defined'),
+        default=True)
+
+    num_teasers = schema.Int(
+        title=_(u'Number of teasers displayed'),
+        description=_(u'Define the maximum number of teasers,'\
+                'which are displayed in this portlet'),
+        default=1)
 
 class Assignment(base.Assignment):
     implements(ITeaserPortlet)
