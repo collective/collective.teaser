@@ -1,0 +1,119 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2011-01-22 15:51+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.teaser\n"
+
+#: ./browser/common.py:49
+msgid "Add portlet to show teasers."
+msgstr ""
+
+#: ./content/teaser.py:58
+msgid "Additional notes"
+msgstr ""
+
+#: ./content/teaser.py:36
+msgid "Alternative image"
+msgstr ""
+
+#: ./content/teaser.py:37
+msgid "Alternative image in different layout, e.g. in portrait instead of landscape layout. A portlet can prefer alternative layouts."
+msgstr ""
+
+#: ./content/teaser.py:97
+msgid "High importance"
+msgstr ""
+
+#: ./content/teaser.py:96
+msgid "Highest importance"
+msgstr ""
+
+#: ./browser/common.py:26
+msgid "If an alternative image is defined for the teaser,use this one. Alternative images can have a different layout,e.g. portrait instead of landscape."
+msgstr ""
+
+#: ./content/teaser.py:27
+msgid "Image"
+msgstr ""
+
+#: ./browser/common.py:20
+msgid "Image Size"
+msgstr ""
+
+#: ./content/teaser.py:28
+msgid "Image to display as teaser."
+msgstr ""
+
+#: ./content/teaser.py:71
+msgid "Importance"
+msgstr ""
+
+#: ./browser/common.py:15
+msgid "Importance Levels"
+msgstr ""
+
+#: ./content/teaser.py:99
+msgid "Low importance"
+msgstr ""
+
+#: ./content/teaser.py:98
+msgid "Normal importance"
+msgstr ""
+
+#: ./browser/common.py:25
+msgid "Prefer alternative image"
+msgstr ""
+
+#: ./content/teaser.py:72
+msgid "Select the importance of the teaser. The frequency of the teaser will be set accordingly."
+msgstr ""
+
+#: ./browser/common.py:16
+msgid "Select which importance levels the portlet should show."
+msgstr ""
+
+#: ./browser/common.py:21
+msgid "Select, which image scale should be used for the portlet."
+msgstr ""
+
+#: ./profiles/default/types/Teaser.xml
+msgid "Teaser"
+msgstr ""
+
+#: ./browser/common.py:44
+msgid "Teaser Portlet"
+msgstr ""
+
+#: ./profiles/default/types/Teaser.xml
+msgid "Teaser are flyers, advertisements or the like, which link to teaseed content internally or externally."
+msgstr ""
+
+#: ./content/teaser.py:57
+msgid "Text"
+msgstr ""
+
+#: ./browser/common.py:50
+msgid "This portlet shows teasers."
+msgstr ""
+
+#: ./content/teaser.py:46
+msgid "Url"
+msgstr ""
+
+#: ./content/teaser.py:47
+msgid "Use the form http://WEBSITE.TLD/"
+msgstr ""
+
