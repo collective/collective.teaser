@@ -8,7 +8,7 @@ from plone.app.portlets.portlets import base
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 
-from collective.teaser import messageFactory as _
+from collective.teaser import MsgFact as _
 
 class ITeaserPortlet(IPortletDataProvider):
     importance_levels = schema.List(
