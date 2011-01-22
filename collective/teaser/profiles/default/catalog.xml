@@ -1,0 +1,4 @@
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+    <column value="importance"/>
+</object>
+
