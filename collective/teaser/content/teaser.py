@@ -1,7 +1,4 @@
-from zope.interface import implements, directlyProvides
-from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleVocabulary
-
+from zope.interface import implements
 try:
     from Products.LinguaPlone import public  as atapi
 except ImportError:
@@ -64,7 +61,7 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         required=True,
         searchable=True,
         languageIndependent=True,
-        vocabulary_factory=u"collective.teaser.ImportanceVocabulary",
+        vocabulary_factory="collective.teaser.ImportanceVocabulary",
         enforceVocabulary=True,
         default=DEFAULT_IMPORTANCE,
 		widget=atapi.SelectionWidget(
@@ -91,12 +88,3 @@ class Teaser(base.ATCTContent):
     schema = type_schema
 
 atapi.registerType(Teaser, PROJECTNAME)
-
-def ImportanceVocabulary(context):
-    items =[(_(u"Highest importance"),'1'),
-           (_(u"High importance"),'2'),
-           (_(u"Normal importance"),'3'),
-           (_(u"Low importance"),'4'),
-           ]
-    return SimpleVocabulary.fromItems(items)
-directlyProvides(ImportanceVocabulary, IVocabularyFactory)

@@ -10,7 +10,7 @@
   <include package=".browser" />
 
   <utility
-      component=".content.teaser.ImportanceVocabulary"
+      component=".config.ImportanceVocabulary"
       name="collective.teaser.ImportanceVocabulary"
   />
 
