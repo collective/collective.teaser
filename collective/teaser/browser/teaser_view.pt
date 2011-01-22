@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      lang="en"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.teaser">
+<body>
+
+<metal:content-core fill-slot="content-core">
+<metal:content-core define-macro="content-core">
+
+    <tal:img replace="structure context/image/tag" /><br />
+    <tal:altimg replace="structure context/altimage/tag" /><br />
+    <tal:field metal:use-macro="python:context.widget('text', mode='view')" /><br />
+    <tal:url condition="context/url">
+        <p><a href=""
+            tal:attributes="href context/url"
+            tal:content="context/url">url</a></p>
+    </tal:url>
+    <tal:importance condition="context/importance">
+        <p tal:content="context/importance">importance</p>
+    </tal:importance>
+
+</metal:content-core>
+</metal:content-core>
+
+</body>
+</html>
+
