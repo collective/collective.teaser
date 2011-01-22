@@ -4,6 +4,19 @@
 	xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="collective.teaser">
 
+    <browser:resourceDirectory
+        name="collective.teaser.resources"
+        directory="resources"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        for="..interfaces.ITeaser"
+        name="view"
+        template="teaser_view.pt"
+        permission="zope2.View"
+        />
+
     <plone:portlet
         name="collective.teaser.teaser_portlet"
         interface=".common.ITeaserPortlet"
