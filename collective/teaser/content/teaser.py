@@ -17,7 +17,7 @@ from collective.teaser import MsgFact as _
 from plone.app.imaging.utils import getAllowedSizes
 allowed_sizes = getAllowedSizes()
 
-schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
+type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
     atapi.ImageField('image',
         required=False,
@@ -75,10 +75,10 @@ schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 
 ))
 
-schema['description'].widget.visible = {'view': 'invisible',
+type_schema['description'].widget.visible = {'view': 'invisible',
                                              'edit': 'invisible'}
 
-schemata.finalizeATCTSchema(schema,
+schemata.finalizeATCTSchema(type_schema,
                             folderish=False,
                             moveDiscussion=False)
 
@@ -88,15 +88,15 @@ class Teaser(base.ATCTContent):
 
     portal_type = "Teaser"
     _at_rename_after_creation = True
-    schema = schema
+    schema = type_schema
 
 atapi.registerType(Teaser, PROJECTNAME)
 
 def ImportanceVocabulary(context):
-    items =[(_(u"Highest importance",),1),
-           (_(u"High importance",),2),
-           (_(u"Normal importance",),3),
-           (_(u"Low importance",),4),
+    items =[(_(u"Highest importance"),'1'),
+           (_(u"High importance"),'2'),
+           (_(u"Normal importance"),'3'),
+           (_(u"Low importance"),'4'),
            ]
     return SimpleVocabulary.fromItems(items)
 directlyProvides(ImportanceVocabulary, IVocabularyFactory)
