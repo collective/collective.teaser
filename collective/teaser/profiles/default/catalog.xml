@@ -1,4 +1,7 @@
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
-    <column value="importance"/>
+ <index name="importance" meta_type="FieldIndex">
+  <indexed_attr value="importance"/>
+ </index>
+ <column value="importance"/>
 </object>
 
