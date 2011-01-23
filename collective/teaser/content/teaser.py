@@ -48,13 +48,12 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         required=False,
         searchable=False,
         languageIndependent=False,
-        validators=('isTidyHtmlWithCleanup',),
-        default_output_type='text/x-html-safe',
-		widget = atapi.RichWidget(
+        default_content_type = 'text/plain',
+        allowable_content_types = ('text/plain',),
+		widget = atapi.TextAreaWidget(
             label = _(u"Text"),
 			description = _(u"Additional notes"),
 			rows = 5,
-            allow_file_upload=False,
         ),
 	),
 	atapi.StringField('importance',
