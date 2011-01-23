@@ -1,3 +1,4 @@
+import random
 from zope import schema
 from zope.formlib import form
 from zope.interface import implements
@@ -13,10 +14,10 @@ from collective.teaser import MsgFact as _
 
 class ITeaserPortlet(IPortletDataProvider):
 
-    importance_levels = schema.List(
+    importance_levels = schema.Tuple(
             title=_(u'Importance Levels'),
             description=_(u'Select which importance levels the portlet should show.'),
-            default=[DEFAULT_IMPORTANCE,],
+            default=(DEFAULT_IMPORTANCE,),
             required=True,
             value_type=schema.Choice(
                 vocabulary="collective.teaser.ImportanceVocabulary"
@@ -50,15 +51,77 @@ class ITeaserPortlet(IPortletDataProvider):
                 'which are displayed in this portlet'),
         default=1)
 
+
+class Renderer(base.Renderer):
+    render = ViewPageTemplateFile('teaser_portlet.pt')
+
+    # TODO: cache me
+    def _teaserlist(self):
+        context = aq_inner(self.context)
+        cat = getToolByName(context,'portal_catalog')
+        query = {}
+        query['Type'] = 'Teaser'
+        # show ony importance of
+        query['importance'] = self.data.importance_levels
+        brains = cat(**query)
+        # make a weighted (multiplied by importance) list of teasers.
+        teasers = []
+        [teasers.extend(int(brain.importance) * [brain]) for brain in brains]
+        return teasers
+
+    def get_teasers(self):
+        teasers = self._teaserlist()
+
+        # get used id's from request and exclude em
+        taken_teasers = getattr(self.request, 'teasers', [])
+
+        choosen_teasers = []
+        for cnt in range(self.data.num_teasers):
+
+            # reduce selected teasers with all taken_teasers
+            teasers = [teaser for teaser in teasers
+                      if teaser.id not in taken_teasers]
+
+            # randomly select num_teasers from all
+            choosen_teaser = random.choice(teasers)
+            choosen_teasers.append(choosen_teaser.getObject())
+            taken_teasers.append(choosen_teaser.id)
+
+        # save new taken teaser list in request
+        self.request['teasers'] = taken_teasers
+
+        # create data structure and return
+        scale = self.data.image_size
+        title = self.data.show_title
+        altimg = self.data.prefer_altimage
+        return [{'title': title and teaser.title or None,
+                 'image': altimg and getattr(teaser, 'altimage', False) and\
+                          teaser.getField('altimage').tag(teaser, scale=scale) or\
+                          getattr(teaser, 'image', False) and\
+                          teaser.getField('image').tag(teaser, scale=scale) or\
+                          None,
+                 'text': teaser.text,
+                 'url': teaser.url}
+                for teaser in choosen_teasers]
+
+    @property
+    def available(self):
+        return True
+
+
 class Assignment(base.Assignment):
     implements(ITeaserPortlet)
 
     def __init__(self, importance_levels=None,
             image_size=None,
-            prefer_altimage=False):
+            prefer_altimage=False,
+            show_title=True,
+            num_teasers=1):
         self.importance_levels = importance_levels
         self.image_size = image_size
         self.prefer_altimage = prefer_altimage
+        self.show_title=show_title
+        self.num_teasers=num_teasers
 
     @property
     def title(self):
@@ -78,12 +141,5 @@ class EditForm(base.EditForm):
     form_fields = form.Fields(ITeaserPortlet)
     label = _(u"Add portlet to show teasers.")
     description = _(u"This portlet shows teasers.")
-
-class Renderer(base.Renderer):
-    render = ViewPageTemplateFile('teaser_portlet.pt')
-
-    @property
-    def available(self):
-        return True
 
 
