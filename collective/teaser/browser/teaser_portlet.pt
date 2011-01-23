@@ -10,7 +10,7 @@
     <tal:rep repeat="teaser teasers">
     <dd class="portletItem">
     <a href="" tal:attributes="href teaser/url">
-    <h1 tal:condition="teaser/title" tal:content="teaser/title"></h1>
+    <h3 tal:condition="teaser/title" tal:content="teaser/title" />
     <tal:cond condition="teaser/image">
         <tal:img replace="structure teaser/image" /><br/>
     </tal:cond>
