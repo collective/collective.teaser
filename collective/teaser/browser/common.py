@@ -63,6 +63,8 @@ class Renderer(base.Renderer):
         query['Type'] = 'Teaser'
         # show ony importance of
         query['importance'] = self.data.importance_levels
+        # TODO: show only published teasers
+        # TODO: respect effective/until dates
         brains = cat(**query)
         # make a weighted (multiplied by importance) list of teasers.
         teasers = []
