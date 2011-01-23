@@ -96,6 +96,7 @@ class Renderer(base.Renderer):
         scale = self.data.image_size
         title = self.data.show_title
         altimg = self.data.prefer_altimage
+        # TODO: get url from referenced object, if avail
         return [{'title': title and teaser.title or None,
                  'image': altimg and getattr(teaser, 'altimage', False) and\
                           teaser.getField('altimage').tag(teaser, scale=scale) or\
