@@ -10,8 +10,12 @@
 <metal:content-core fill-slot="content-core">
 <metal:content-core define-macro="content-core">
 
-    <tal:img replace="structure context/image/tag" /><br />
-    <tal:altimg replace="structure context/altimage/tag" /><br />
+    <tal:img
+        condition="context/image|nothing"
+        replace="structure context/image/tag" /><br />
+    <tal:altimg
+        condition="context/altimage|nothing"
+        replace="structure context/altimage/tag" /><br />
     <tal:field metal:use-macro="python:context.widget('text', mode='view')" /><br />
     <tal:url condition="context/url">
         <p><a href=""
