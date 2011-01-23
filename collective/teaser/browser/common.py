@@ -103,7 +103,7 @@ class Renderer(base.Renderer):
                           teaser.getField('image').tag(teaser, scale=scale) or\
                           None,
                  'text': teaser.text,
-                 'url': teaser.url}
+                 'url': teaser.link_external}
                 for teaser in choosen_teasers]
 
     @property

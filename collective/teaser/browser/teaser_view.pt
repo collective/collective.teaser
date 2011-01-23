@@ -17,10 +17,11 @@
         condition="context/altimage|nothing"
         replace="structure context/altimage/tag" /><br />
     <tal:field metal:use-macro="python:context.widget('text', mode='view')" /><br />
-    <tal:url condition="context/url">
+    <tal:field metal:use-macro="python:context.widget('link_internal', mode='view')" /><br />
+    <tal:url condition="context/link_external">
         <p><a href=""
-            tal:attributes="href context/url"
-            tal:content="context/url">url</a></p>
+            tal:attributes="href context/link_external"
+            tal:content="context/link_external">url</a></p>
     </tal:url>
     <tal:importance condition="context/importance">
         <p tal:content="context/importance">importance</p>

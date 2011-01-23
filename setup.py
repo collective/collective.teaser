@@ -29,6 +29,7 @@ setup(name='collective.teaser',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'archetypes.referencebrowserwidget',
       ],
       entry_points="""
       # -*- Entry points: -*-

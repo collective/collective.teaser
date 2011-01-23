@@ -4,6 +4,7 @@ try:
 except ImportError:
     # No multilingual support
     from Products.Archetypes import atapi
+from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from Products.ATContentTypes.content import base
 from Products.ATContentTypes.content import schemata
 
@@ -34,14 +35,30 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
             description=_(u"Alternative image in different layout, e.g. in portrait instead of landscape layout. A portlet can prefer alternative layouts."),
             ),
         ),
-     atapi.StringField('url',
-        required=True,
+     atapi.ReferenceField('link_internal',
+        required=False,
+        searchable=False,
+        languageIndependent=True,
+		validators=("isURL"),
+		multiValued=False,
+        relationship='ref_link_internal',
+        widget = ReferenceBrowserWidget(
+            label = _(u"Link to Internal Content"),
+			description = _(u"Link to internal content. For external content, use the field below."),
+            startup_directory = '/',
+            force_close_on_insert = True,
+            show_review_state = True,
+            show_results_without_query = True,
+        ),
+	),
+    atapi.StringField('link_external',
+        required=False,
         searchable=False,
         languageIndependent=True,
 		validators=("isURL"),
 		widget = atapi.StringWidget(
-            label = _(u"Url"),
-			description = _(u"Use the form http://WEBSITE.TLD/"),
+            label = _(u"Link to external Content"),
+			description = _(u"Url to external content. For internal content, use the field above. Use the form http://WEBSITE.TLD/"),
         ),
 	),
 	atapi.TextField('text',
