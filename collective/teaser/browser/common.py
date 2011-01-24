@@ -63,7 +63,7 @@ class Renderer(base.Renderer):
         query['Type'] = 'Teaser'
         # show ony importance of
         query['importance'] = self.data.importance_levels
-        # TODO: show only published teasers
+        query['review_state'] = 'published'
         # TODO: respect effective/until dates
         brains = cat(**query)
         # make a weighted (multiplied by importance) list of teasers.
@@ -73,6 +73,7 @@ class Renderer(base.Renderer):
 
     def get_teasers(self):
         teasers = self._teaserlist()
+        if not teasers: return None
 
         # get used id's from request and exclude em
         taken_teasers = getattr(self.request, 'teasers', [])
