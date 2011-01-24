@@ -95,6 +95,7 @@ class Renderer(base.Renderer):
             # reduce selected teasers with all taken_teasers
             teasers = [teaser for teaser in teasers
                       if teaser.id not in taken_teasers]
+            if not teasers: break
 
             # randomly select num_teasers from all
             choosen_teaser = random.choice(teasers)
