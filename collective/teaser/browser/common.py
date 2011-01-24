@@ -6,12 +6,16 @@ from DateTime import DateTime
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
+from plone.memoize import ram
+from time import time
 
 from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 
 from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
+
+CACHETIME = 30 # time to cache catalog query in minutes
 
 class ITeaserPortlet(IPortletDataProvider):
 
@@ -53,10 +57,15 @@ class ITeaserPortlet(IPortletDataProvider):
         default=1)
 
 
+def _teaserlist_cachekey(method, self):
+    return (self.__portlet_metadata__['name'],
+            time() // (60 * CACHETIME))
+
+
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('teaser_portlet.pt')
 
-    # TODO: cache me
+    @ram.cache(_teaserlist_cachekey)
     def _teaserlist(self):
         context = aq_inner(self.context)
         cat = getToolByName(context,'portal_catalog')
