@@ -142,7 +142,7 @@ class Assignment(base.Assignment):
 
     @property
     def title(self):
-        return _(u"Teaser Portlet")
+        return _(u"Teaser")
 
 
 class AddForm(base.AddForm):
