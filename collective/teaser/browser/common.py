@@ -104,7 +104,9 @@ class Renderer(base.Renderer):
                           teaser.getField('image').tag(teaser, scale=scale) or\
                           None,
                  'text': teaser.text,
-                 'url': teaser.link_external}
+                 'url': teaser.getLink_internal() and\
+                        teaser.getLink_internal().absolute_url() or\
+                        teaser.link_external or None}
                 for teaser in choosen_teasers]
 
     @property
