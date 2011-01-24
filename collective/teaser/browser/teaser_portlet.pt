@@ -7,6 +7,12 @@
     tal:define="teasers view/get_teasers"
     tal:condition="teasers">
 
+    <dt class="portletHeader">
+        <span class="portletTopLeft"></span>
+        <span tal:content="view/data/title" />
+        <span class="portletTopRight"></span>
+    </dt>
+
     <tal:rep repeat="teaser teasers">
     <dd class="portletItem">
     <a href="" tal:attributes="href teaser/url">
