@@ -2,6 +2,7 @@ import random
 from zope import schema
 from zope.formlib import form
 from zope.interface import implements
+from DateTime import DateTime
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
@@ -61,10 +62,11 @@ class Renderer(base.Renderer):
         cat = getToolByName(context,'portal_catalog')
         query = {}
         query['Type'] = 'Teaser'
-        # show ony importance of
+        # show only selected importances
         query['importance'] = self.data.importance_levels
+        # show only published and not expired, even for admins
         query['review_state'] = 'published'
-        # TODO: respect effective/until dates
+        query['effectiveRange'] = DateTime()
         brains = cat(**query)
         # make a weighted (multiplied by importance) list of teasers.
         teasers = []
