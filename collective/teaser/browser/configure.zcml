@@ -26,5 +26,10 @@
         editview=".common.EditForm"
         />
 
-</configure>
+    <adapter
+        factory=".common.teaser_default_available"
+        for="plone.portlets.interfaces.ILocalPortletAssignable
+             plone.portlets.interfaces.IPortletManager" />
 
+
+</configure>

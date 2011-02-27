@@ -1,7 +1,7 @@
 import random
 from zope import schema
 from zope.formlib import form
-from zope.interface import implements
+from zope.interface import implements, implementer
 from DateTime import DateTime
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.portlets.interfaces import IPortletDataProvider
@@ -16,6 +16,13 @@ from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
 
 CACHETIME = 30 # time to cache catalog query in minutes
+
+from zope.component import getMultiAdapter
+from collective.teaser.interfaces import ITeaserAvailable
+
+@implementer(ITeaserAvailable)
+def teaser_default_available(context, manager):
+    return True
 
 class ITeaserPortlet(IPortletDataProvider):
 
@@ -123,7 +130,9 @@ class Renderer(base.Renderer):
 
     @property
     def available(self):
-        return True
+        context = aq_inner(self.context)
+        available = getMultiAdapter((context, self.manager), ITeaserAvailable)
+        return available
 
 
 class Assignment(base.Assignment):
