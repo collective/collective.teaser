@@ -17,7 +17,7 @@ from collective.teaser import MsgFact as _
 
 CACHETIME = 30 # time to cache catalog query in minutes
 
-from zope.component import getMultiAdapter
+from zope.component import getMultiAdapter, queryMultiAdapter
 from collective.teaser.interfaces import ITeaserAvailable
 
 @implementer(ITeaserAvailable)
@@ -65,7 +65,7 @@ class ITeaserPortlet(IPortletDataProvider):
 
 
 def _teaserlist_cachekey(method, self):
-    return (self.__portlet_metadata__['name'],
+    return (self.data.id,
             time() // (60 * CACHETIME))
 
 
@@ -131,7 +131,10 @@ class Renderer(base.Renderer):
     @property
     def available(self):
         context = aq_inner(self.context)
-        available = getMultiAdapter((context, self.manager), ITeaserAvailable)
+        # first try to get a named multi adapter, then an unnamed
+        available = queryMultiAdapter(
+            (context, self.manager), ITeaserAvailable, name=self.data.id,
+            default=getMultiAdapter((context, self.manager), ITeaserAvailable))
         return available
 
 
