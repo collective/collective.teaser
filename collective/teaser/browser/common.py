@@ -1,28 +1,34 @@
 import random
-from zope import schema
+from time import time
+from zope.component import getMultiAdapter, queryMultiAdapter
 from zope.formlib import form
 from zope.interface import implements, implementer
-from DateTime import DateTime
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.portlets.interfaces import IPortletDataProvider
-from plone.app.portlets.portlets import base
+from zope import schema
 from plone.memoize import ram
-from time import time
+from plone.app.portlets.portlets import base
+from plone.portlets.interfaces import IPortletDataProvider
 
-from Acquisition import aq_inner
+from Acquisition import aq_inner, aq_base
+from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+from collective.teaser.interfaces import IPortletAvailable
 from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
 
 CACHETIME = 30 # time to cache catalog query in minutes
 
-from zope.component import getMultiAdapter, queryMultiAdapter
-from collective.teaser.interfaces import ITeaserAvailable
 
-@implementer(ITeaserAvailable)
-def teaser_default_available(context, manager):
+@implementer(IPortletAvailable)
+def teaser_default_available(portlet, manager, context):
     return True
+
+
+def _teaserlist_cachekey(method, self):
+    return (self.data.id,
+            time() // (60 * CACHETIME))
+
 
 class ITeaserPortlet(IPortletDataProvider):
 
@@ -62,11 +68,6 @@ class ITeaserPortlet(IPortletDataProvider):
         description=_(u'Define the maximum number of teasers,'\
                 'which are displayed in this portlet'),
         default=1)
-
-
-def _teaserlist_cachekey(method, self):
-    return (self.data.id,
-            time() // (60 * CACHETIME))
 
 
 class Renderer(base.Renderer):
@@ -131,10 +132,11 @@ class Renderer(base.Renderer):
     @property
     def available(self):
         context = aq_inner(self.context)
+        assignment = aq_base(self.data)
         # first try to get a named multi adapter, then an unnamed
         available = queryMultiAdapter(
-            (context, self.manager), ITeaserAvailable, name=self.data.id,
-            default=getMultiAdapter((context, self.manager), ITeaserAvailable))
+            (assignment, self.manager, context), IPortletAvailable, name=assignment.id,
+            default=getMultiAdapter((assignment, self.manager, context), IPortletAvailable))
         return available
 
 

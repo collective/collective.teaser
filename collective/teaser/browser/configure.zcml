@@ -28,8 +28,8 @@
 
     <adapter
         factory=".common.teaser_default_available"
-        for="plone.portlets.interfaces.ILocalPortletAssignable
-             plone.portlets.interfaces.IPortletManager" />
-
+        for="collective.teaser.browser.common.ITeaserPortlet
+             plone.portlets.interfaces.IPortletManager
+             plone.portlets.interfaces.ILocalPortletAssignable" />
 
 </configure>
