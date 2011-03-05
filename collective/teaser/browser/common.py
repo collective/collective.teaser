@@ -75,6 +75,7 @@ class Renderer(base.Renderer):
 
     @ram.cache(_teaserlist_cachekey)
     def _teaserlist(self):
+        print "_TEASERLIST"
         context = aq_inner(self.context)
         cat = getToolByName(context,'portal_catalog')
         query = {}
