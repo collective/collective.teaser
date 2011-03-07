@@ -15,7 +15,7 @@ directlyProvides(ImportanceVocabulary, IVocabularyFactory)
 
 def ImageScaleVocabulary(context):
     allowed_sizes = getAllowedSizes()
-    items = [("%s(%s, %s)" %(key, value[0], value[1]), key)
+    items = [(u'%s(%s, %s)' %(key, value[0], value[1]), key)
         for key,value in allowed_sizes.items() if allowed_sizes]
     return SimpleVocabulary.fromItems(items)
 directlyProvides(ImageScaleVocabulary, IVocabularyFactory)

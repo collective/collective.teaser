@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import random
 from time import time
 from zope.component import getMultiAdapter, queryMultiAdapter
@@ -52,21 +53,21 @@ class ITeaserPortlet(IPortletDataProvider):
     prefer_altimage = schema.Bool(
         title=_(u'Prefer alternative image'),
         description=_(u'If an alternative image is defined for the teaser,'\
-                'use this one. Alternative images can have a different layout,'\
-                'e.g. portrait instead of landscape.'),
+                u'use this one. Alternative images can have a different layout,'\
+                u'e.g. portrait instead of landscape.'),
         default=False)
 
     show_title = schema.Bool(
         title=_(u'Show the teasers title'),
         description=_(u'Show the title of the teaser which is displayed.'\
-                'Note, that text defined in the teaser is always displayed,'\
-                'if defined'),
+                u'Note, that text defined in the teaser is always displayed,'\
+                u'if defined'),
         default=True)
 
     num_teasers = schema.Int(
         title=_(u'Number of teasers displayed'),
         description=_(u'Define the maximum number of teasers,'\
-                'which are displayed in this portlet'),
+                u'which are displayed in this portlet'),
         default=1)
 
 
@@ -117,11 +118,15 @@ class Renderer(base.Renderer):
         scale = self.data.image_size
         title = self.data.show_title
         altimg = self.data.prefer_altimage
-        return [{'title': title and teaser.title or None,
+        # below: give "tag" the title and alt attr as unicode objects
+        # P.Archetypes.Field.ImageField.tag otherwise will throw an error
+        return [{'title': title and u'%s' % teaser.title or u'',
                  'image': altimg and getattr(teaser, 'altimage', False) and\
-                          teaser.getField('altimage').tag(teaser, scale=scale) or\
+                          teaser.getField('altimage').tag(teaser, scale=scale,\
+                              alt=teaser.title, title=teaser.title) or\
                           getattr(teaser, 'image', False) and\
-                          teaser.getField('image').tag(teaser, scale=scale) or\
+                          teaser.getField('image').tag(teaser, scale=scale,\
+                              alt=teaser.title, title=teaser.title) or\
                           None,
                  'text': teaser.text,
                  'url': teaser.getLink_internal() and\
