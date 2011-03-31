@@ -22,8 +22,8 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         languageIndependent=True,
         sizes = allowed_sizes,
         widget=atapi.ImageWidget(
-            label=_(u"Image"),
-            description=_(u"Image to display as teaser."),
+            label=_(u"label_image", default=u"Image"),
+            description=_(u"help_image", default=u"Image to display as teaser."),
             ),
         ),
      atapi.ImageField('altimage',
@@ -31,8 +31,8 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         languageIndependent=True,
         sizes = allowed_sizes,
         widget=atapi.ImageWidget(
-            label=_(u"Alternative image"),
-            description=_(u"Alternative image in different layout, e.g. in portrait instead of landscape layout. A portlet can prefer alternative layouts."),
+            label=_(u"label_altimage", default=u"Alternative image"),
+            description=_(u"help_altimage", default=u"Alternative image for a different layout. E.g. in portrait instead of landscape layout. A portlet can prefer alternative layouts."),
             ),
         ),
      atapi.ReferenceField('link_internal',
@@ -42,8 +42,8 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 		multiValued=False,
         relationship='ref_link_internal',
         widget = ReferenceBrowserWidget(
-            label = _(u"Link to Internal Content"),
-			description = _(u"Link to internal content. For external content, use the field below."),
+            label = _(u"label_link_internal", default=u"Link to Internal Content"),
+			description = _(u"help_link_internal", default=u"Link to internal content. For external content, use the External Link field."),
             allow_search=True,
             allow_browse=True,
             force_close_on_insert = True,
@@ -58,8 +58,8 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         languageIndependent=True,
 		validators=("isURL"),
 		widget = atapi.StringWidget(
-            label = _(u"Link to external Content"),
-			description = _(u"Url to external content. For internal content, use the field above. Use the form http://WEBSITE.TLD/"),
+            label = _(u"label_link_external", default=u"Link to external Content"),
+			description = _(u"help_link_external", default=u"Url to external content. For internal content, use the field above. Use the form http://WEBSITE.TLD/"),
         ),
 	),
 	atapi.TextField('text',
@@ -69,8 +69,8 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         default_content_type = 'text/plain',
         allowable_content_types = ('text/plain',),
 		widget = atapi.TextAreaWidget(
-            label = _(u"Text"),
-			description = _(u"Additional notes"),
+            label = _(u"label_text", default=u"Text"),
+			description = _(u"help_text", default=u"Additional text to be shown in the teaser."),
 			rows = 5,
         ),
 	),
@@ -82,8 +82,8 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         enforceVocabulary=True,
         default=DEFAULT_IMPORTANCE,
 		widget=atapi.SelectionWidget(
-            label = _(u"Importance"),
-			description = _(u"Select the importance of the teaser. The frequency of the teaser will be set accordingly."),
+            label = _(u"label_importance", default=u"Importance"),
+			description = _(u"help_importance", default=u"Select the importance of the teaser. The frequency of the teaser will be set accordingly."),
         ),
 	),
 

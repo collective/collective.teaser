@@ -10,26 +10,35 @@
 <metal:content-core fill-slot="content-core">
 <metal:content-core define-macro="content-core">
 
-    <tal:img
-        condition="context/image|nothing"
-        replace="structure context/image/tag" /><br />
-    <tal:altimg
-        condition="context/altimage|nothing"
-        replace="structure context/altimage/tag" /><br />
-    <tal:field metal:use-macro="python:context.widget('text', mode='view')" /><br />
-    <tal:field metal:use-macro="python:context.widget('link_internal', mode='view')" /><br />
-    <tal:url condition="context/link_external">
-        <p><a href=""
+    <p tal:condition="context/image|nothing">
+      <strong i18n:translate="label_image">Image:</strong>
+      <tal:img replace="structure context/image/tag" />
+    </p>
+    <p tal:condition="context/altimage|nothing">
+      <strong i18n:translate="label_altimage">Alternative Image:</strong>
+      <tal:img replace="structure context/altimage/tag" />
+    </p>
+    <p tal:condition="context/text|nothing">
+      <strong i18n:translate="label_text">Text:</strong>
+      <tal:field metal:use-macro="python:context.widget('text', mode='view')" />
+    </p>
+    <p tal:condition="context/link_internal|nothing">
+      <strong i18n:translate="label_link_internal">Internal Link:</strong>
+      <tal:field metal:use-macro="python:context.widget('link_internal', mode='view')" />
+    </p>
+    <p tal:condition="context/link_external|nothing">
+      <strong i18n:translate="label_link_external">External Link:</strong>
+        <a href=""
             tal:attributes="href context/link_external"
-            tal:content="context/link_external">url</a></p>
-    </tal:url>
-    <tal:importance condition="context/importance">
-        <p tal:content="context/importance">importance</p>
-    </tal:importance>
+            tal:content="context/link_external">url</a>
+    </p>
+    <p tal:condition="context/importance|nothing">
+      <strong i18n:translate="label_importance">Importance:</strong>
+      <tal:importance replace="context/importance" />
+    </p>
 
 </metal:content-core>
 </metal:content-core>
 
 </body>
 </html>
-
