@@ -1,13 +1,13 @@
 # --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
 # collective.teaser german translation.
-# Johannes Raggam <raggam-nl@adm.at>, 2011.
+# Johannes Raggam <johannes@raggam.co.at>, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2011-01-22 15:51+0000\n"
+"POT-Creation-Date: 2011-04-01 10:18+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Johannes Raggam <raggam-nl@adm.at>\n"
-"Language-Team: de\n"
+"Last-Translator: Johannes Raggam <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,103 +17,164 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.teaser\n"
 
-#: ./browser/common.py:49
-msgid "Add portlet to show teasers."
-msgstr ""
-
-#: ./content/teaser.py:58
-msgid "Additional notes"
-msgstr ""
-
-#: ./content/teaser.py:36
-msgid "Alternative image"
-msgstr ""
-
-#: ./content/teaser.py:37
-msgid "Alternative image in different layout, e.g. in portrait instead of landscape layout. A portlet can prefer alternative layouts."
-msgstr ""
-
-#: ./content/teaser.py:97
-msgid "High importance"
-msgstr ""
-
-#: ./content/teaser.py:96
-msgid "Highest importance"
-msgstr ""
-
-#: ./browser/common.py:26
-msgid "If an alternative image is defined for the teaser,use this one. Alternative images can have a different layout,e.g. portrait instead of landscape."
-msgstr ""
-
-#: ./content/teaser.py:27
-msgid "Image"
-msgstr ""
-
-#: ./browser/common.py:20
-msgid "Image Size"
-msgstr ""
-
-#: ./content/teaser.py:28
-msgid "Image to display as teaser."
-msgstr ""
-
-#: ./content/teaser.py:71
-msgid "Importance"
-msgstr ""
-
-#: ./browser/common.py:15
-msgid "Importance Levels"
-msgstr ""
-
-#: ./content/teaser.py:99
-msgid "Low importance"
-msgstr ""
-
-#: ./content/teaser.py:98
-msgid "Normal importance"
-msgstr ""
-
-#: ./browser/common.py:25
-msgid "Prefer alternative image"
-msgstr ""
-
-#: ./content/teaser.py:72
-msgid "Select the importance of the teaser. The frequency of the teaser will be set accordingly."
-msgstr ""
-
-#: ./browser/common.py:16
-msgid "Select which importance levels the portlet should show."
-msgstr ""
-
-#: ./browser/common.py:21
-msgid "Select, which image scale should be used for the portlet."
-msgstr ""
-
+#. Default: "Teaser are flyers, advertisements or the like, which link to teaseed content internally or externally."
 #: ./profiles/default/types/Teaser.xml
-msgid "Teaser"
-msgstr ""
+msgid "content_description"
+msgstr "Teaser sind Ankündigungen in Form von Flyern, die zu einem internen oder externen Inhalt verlinken. Mit Teasern kann die Aufmerksamkeit auf bestimmte Inhalte gelenkt werden."
 
-#: ./browser/common.py:44
-msgid "Teaser Portlet"
-msgstr ""
-
+#. Default: "Teaser"
 #: ./profiles/default/types/Teaser.xml
-msgid "Teaser are flyers, advertisements or the like, which link to teaseed content internally or externally."
-msgstr ""
+msgid "content_title"
+msgstr "Teaser"
 
-#: ./content/teaser.py:57
-msgid "Text"
-msgstr ""
+#. Default: "Alternative image for a different layout. E.g. in portrait instead of landscape layout. A portlet can prefer alternative layouts."
+#: ./content/teaser.py:35
+msgid "help_altimage"
+msgstr "Alternatives Bild für die Anzeige in einem anderen Layout (bsp. Hochformat anstatt Querformat). Ein Portlet kann ein bestimmtes Layout bevorzugen."
 
-#: ./browser/common.py:50
-msgid "This portlet shows teasers."
-msgstr ""
+#. Default: "Image to display as teaser."
+#: ./content/teaser.py:26
+msgid "help_image"
+msgstr "Bild, das als Teaser angezeigt wird."
 
+#. Default: "Select the importance of the teaser. The frequency of the teaser will be set accordingly."
+#: ./content/teaser.py:86
+msgid "help_importance"
+msgstr "Wichtigkeit des Teasers. Die Wichtigkeit beeinflusst die Anzeigehäufigkeit."
+
+#. Default: "Url to external content. For internal content, use the field above. Use the form http://WEBSITE.TLD/"
+#: ./content/teaser.py:62
+msgid "help_link_external"
+msgstr "Url zu externen Inhalt. Benutzen sie die Form: http://WEBSITE.DOMAIN/"
+
+#. Default: "Link to internal content. For external content, use the External Link field."
 #: ./content/teaser.py:46
-msgid "Url"
-msgstr ""
+msgid "help_link_internal"
+msgstr "Link zu internen Inhalt. Für externen Inhalt verwenden Sie bitte das entsprechende andere Feld."
 
-#: ./content/teaser.py:47
-msgid "Use the form http://WEBSITE.TLD/"
-msgstr ""
+#. Default: "Additional text to be shown in the teaser."
+#: ./content/teaser.py:73
+msgid "help_text"
+msgstr "Optionaler zusätzlicher Text, der unter dem Teaser angezeigt werden soll."
+
+#. Default: "High importance"
+#: ./vocabularies.py:9
+msgid "importance_high"
+msgstr "Hohe Wichtigkeit"
+
+#. Default: "Highest importance"
+#: ./vocabularies.py:8
+msgid "importance_highest"
+msgstr "Höchste Wichtigkeit"
+
+#. Default: "Low importance"
+#: ./vocabularies.py:11
+msgid "importance_low"
+msgstr "Geringe Wichtigkeit"
+
+#. Default: "Normal importance"
+#: ./vocabularies.py:10
+msgid "importance_normal"
+msgstr "Normale Wichtigkeit"
+
+#. Default: "Alternative Image"
+#: ./browser/teaser_view.pt:18
+#: ./content/teaser.py:34
+msgid "label_altimage"
+msgstr "Alternatives Bild"
+
+#. Default: "Image"
+#: ./browser/teaser_view.pt:14
+#: ./content/teaser.py:25
+msgid "label_image"
+msgstr "Bild"
+
+#. Default: "Importance"
+#: ./browser/teaser_view.pt:36
+#: ./content/teaser.py:85
+msgid "label_importance"
+msgstr "Wichtigkeit"
+
+#. Default: "External Link"
+#: ./browser/teaser_view.pt:30
+#: ./content/teaser.py:61
+msgid "label_link_external"
+msgstr "Externer Link"
+
+#. Default: "Internal Link"
+#: ./browser/teaser_view.pt:26
+#: ./content/teaser.py:45
+msgid "label_link_internal"
+msgstr "Interner Link"
+
+#. Default: "Text"
+#: ./browser/teaser_view.pt:22
+#: ./content/teaser.py:72
+msgid "label_text"
+msgstr "Text"
+
+#. Default: "This portlet shows teasers."
+#: ./browser/common.py:170
+msgid "portlet_help_add"
+msgstr "Portlet zum Anzeigen von Teasern."
+
+#. Default: "If an alternative image is defined for the teaser, use this one. Alternative images can have a different layout, e.g. portrait instead of landscape."
+#: ./browser/common.py:55
+msgid "portlet_help_altimage"
+msgstr "Wenn ein alternatives Bild für den Teaser definiert ist, wird dieses verwendet. Alternative Bilder können ein anderes Layout haben (bsp. Hochformat anstatt Querformat)."
+
+#. Default: "Select, which image scale should be used for the portlet."
+#: ./browser/common.py:48
+msgid "portlet_help_image_size"
+msgstr "Wählen Sie die Bildgröße aus, die für den Teaser in diesem Portlet verwendet werden soll."
+
+#. Default: "Select which importance levels the portlet should show."
+#: ./browser/common.py:38
+msgid "portlet_help_importance_levels"
+msgstr "Wählen Sie die Wichtigkeitskategorien aus, die für dieses Portlet verwendet werden."
+
+#. Default: "Define the maximum number of teasers, which are displayed in this portlet"
+#: ./browser/common.py:69
+msgid "portlet_help_num_teasers"
+msgstr "Definieren Sie die maximale Anzahl an Teasern, die in diesem Portlet gleichzeitig angezeigt werden sollen."
+
+#. Default: "Show the title of the teaser which is displayed. Note, that text defined in the teaser is always displayed, if defined"
+#: ./browser/common.py:62
+msgid "portlet_help_show_title"
+msgstr "Den Titel des Teasers anzeigen."
+
+#. Default: "Add portlet to show teasers."
+#: ./browser/common.py:169
+msgid "portlet_label_add"
+msgstr "Portlet zum Anzeigen von Teasern hinzufügen."
+
+#. Default: "Prefer alternative image"
+#: ./browser/common.py:54
+msgid "portlet_label_altimage"
+msgstr "Alternatives Bild bevorzugen."
+
+#. Default: "Image Size"
+#: ./browser/common.py:47
+msgid "portlet_label_image_size"
+msgstr "Bildgröße."
+
+#. Default: "Importance Levels"
+#: ./browser/common.py:37
+msgid "portlet_label_importance_levels"
+msgstr "Wichtigkeits Kategorien"
+
+#. Default: "Number of teasers displayed"
+#: ./browser/common.py:68
+msgid "portlet_label_num_teasers"
+msgstr "Anzahl an Teasern"
+
+#. Default: "Show the teasers title"
+#: ./browser/common.py:61
+msgid "portlet_label_show_title"
+msgstr "Titel Anzeigen"
+
+#. Default: "Teaser"
+#: ./browser/common.py:164
+msgid "portlet_teaser_title"
+msgstr "Teaser"
 

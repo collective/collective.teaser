@@ -5,10 +5,10 @@ from collective.teaser import MsgFact as _
 from plone.app.imaging.utils import getAllowedSizes
 
 def ImportanceVocabulary(context):
-    items =[(_(u"Highest importance"),'4'),
-           (_(u"High importance"),'3'),
-           (_(u"Normal importance"),'2'),
-           (_(u"Low importance"),'1'),
+    items =[(_(u"importance_highest", default=u"Highest importance"),'4'),
+           (_(u"importance_high", default=u"High importance"),'3'),
+           (_(u"importance_normal", default=u"Normal importance"),'2'),
+           (_(u"importance_low", default=u"Low importance"),'1'),
            ]
     return SimpleVocabulary.fromItems(items)
 directlyProvides(ImportanceVocabulary, IVocabularyFactory)

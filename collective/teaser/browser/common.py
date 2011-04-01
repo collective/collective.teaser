@@ -34,8 +34,8 @@ def _teaserlist_cachekey(method, self):
 class ITeaserPortlet(IPortletDataProvider):
 
     importance_levels = schema.Tuple(
-            title=_(u'Importance Levels'),
-            description=_(u'Select which importance levels the portlet should show.'),
+            title=_(u'portlet_label_importance_levels', default=u'Importance Levels'),
+            description=_(u'portlet_help_importance_levels', default=u'Select which importance levels the portlet should show.'),
             default=(DEFAULT_IMPORTANCE,),
             required=True,
             value_type=schema.Choice(
@@ -44,29 +44,29 @@ class ITeaserPortlet(IPortletDataProvider):
             )
 
     image_size = schema.Choice(
-            title=_(u'Image Size'),
-            description=_(u'Select, which image scale should be used for the portlet.'),
+            title=_(u'portlet_label_image_size', default=u'Image Size'),
+            description=_(u'portlet_help_image_size', default=u'Select, which image scale should be used for the portlet.'),
             required=True,
             default=None,
             vocabulary="collective.teaser.ImageScaleVocabulary")
 
     prefer_altimage = schema.Bool(
-        title=_(u'Prefer alternative image'),
-        description=_(u'If an alternative image is defined for the teaser,'\
-                u'use this one. Alternative images can have a different layout,'\
+        title=_(u'portlet_label_altimage', default=u'Prefer alternative image'),
+        description=_(u'portlet_help_altimage', default=u'If an alternative image is defined for the teaser, '\
+                u'use this one. Alternative images can have a different layout, '\
                 u'e.g. portrait instead of landscape.'),
         default=False)
 
     show_title = schema.Bool(
-        title=_(u'Show the teasers title'),
-        description=_(u'Show the title of the teaser which is displayed.'\
-                u'Note, that text defined in the teaser is always displayed,'\
+        title=_(u'portlet_label_show_title', default=u'Show the teasers title'),
+        description=_(u'portlet_help_show_title', default=u'Show the title of the teaser which is displayed. '\
+                u'Note, that text defined in the teaser is always displayed, '\
                 u'if defined'),
         default=True)
 
     num_teasers = schema.Int(
-        title=_(u'Number of teasers displayed'),
-        description=_(u'Define the maximum number of teasers,'\
+        title=_(u'portlet_label_num_teasers', default=u'Number of teasers displayed'),
+        description=_(u'portlet_help_num_teasers', default=u'Define the maximum number of teasers, '\
                 u'which are displayed in this portlet'),
         default=1)
 
@@ -161,13 +161,13 @@ class Assignment(base.Assignment):
 
     @property
     def title(self):
-        return _(u"Teaser")
+        return _(u'portlet_teaser_title', default=u"Teaser")
 
 
 class AddForm(base.AddForm):
     form_fields = form.Fields(ITeaserPortlet)
-    label = _(u"Add portlet to show teasers.")
-    description = _(u"This portlet shows teasers.")
+    label = _(u'portlet_label_add', default=u"Add portlet to show teasers.")
+    description = _(u'portlet_help_add', default=u"This portlet shows teasers.")
 
     def create(self, data):
         return Assignment(**data)
@@ -175,7 +175,5 @@ class AddForm(base.AddForm):
 
 class EditForm(base.EditForm):
     form_fields = form.Fields(ITeaserPortlet)
-    label = _(u"Add portlet to show teasers.")
-    description = _(u"This portlet shows teasers.")
-
-
+    label = _(u'portlet_label_add', default=u"Add portlet to show teasers.")
+    description = _(u'portlet_help_add', default=u"This portlet shows teasers.")

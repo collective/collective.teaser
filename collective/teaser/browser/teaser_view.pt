@@ -11,29 +11,29 @@
 <metal:content-core define-macro="content-core">
 
     <p tal:condition="context/image|nothing">
-      <strong i18n:translate="label_image">Image:</strong>
+      <strong><span omit-tag="" i18n:translate="label_image">Image</span>:</strong>
       <tal:img replace="structure context/image/tag" />
     </p>
     <p tal:condition="context/altimage|nothing">
-      <strong i18n:translate="label_altimage">Alternative Image:</strong>
+      <strong><span omit-tag="" i18n:translate="label_altimage">Alternative Image</span>:</strong>
       <tal:img replace="structure context/altimage/tag" />
     </p>
     <p tal:condition="context/text|nothing">
-      <strong i18n:translate="label_text">Text:</strong>
+      <strong><span omit-tag="" i18n:translate="label_text">Text</span>:</strong>
       <tal:field metal:use-macro="python:context.widget('text', mode='view')" />
     </p>
     <p tal:condition="context/link_internal|nothing">
-      <strong i18n:translate="label_link_internal">Internal Link:</strong>
+      <strong><span omit-tag="" i18n:translate="label_link_internal">Internal Link</span>:</strong>
       <tal:field metal:use-macro="python:context.widget('link_internal', mode='view')" />
     </p>
     <p tal:condition="context/link_external|nothing">
-      <strong i18n:translate="label_link_external">External Link:</strong>
-        <a href=""
-            tal:attributes="href context/link_external"
-            tal:content="context/link_external">url</a>
+      <strong><span omit-tag="" i18n:translate="label_link_external">External Link</span>:</strong>
+      <a href=""
+        tal:attributes="href context/link_external"
+        tal:content="context/link_external">url</a>
     </p>
     <p tal:condition="context/importance|nothing">
-      <strong i18n:translate="label_importance">Importance:</strong>
+      <strong><span omit-tag="" i18n:translate="label_importance">Importance</span>:</strong>
       <tal:importance replace="context/importance" />
     </p>
 

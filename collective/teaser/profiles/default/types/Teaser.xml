@@ -3,9 +3,9 @@
    meta_type="Factory-based Type Information with dynamic views"
    i18n:domain="collective.teaser" xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
- <property name="title" i18n:translate="">Teaser</property>
+ <property name="title" i18n:translate="content_title">Teaser</property>
  <property name="description"
-     i18n:translate="">Teaser are flyers, advertisements or the like, which link to teaseed content internally or externally.</property>
+     i18n:translate="content_description">Teaser are flyers, advertisements or the like, which link to teaseed content internally or externally.</property>
  <property name="content_icon">++resource++collective.teaser.resources/teaser_icon.png</property>
 
  <property name="content_meta_type">Teaser</property>

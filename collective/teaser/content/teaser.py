@@ -31,7 +31,7 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         languageIndependent=True,
         sizes = allowed_sizes,
         widget=atapi.ImageWidget(
-            label=_(u"label_altimage", default=u"Alternative image"),
+            label=_(u"label_altimage", default=u"Alternative Image"),
             description=_(u"help_altimage", default=u"Alternative image for a different layout. E.g. in portrait instead of landscape layout. A portlet can prefer alternative layouts."),
             ),
         ),
@@ -42,7 +42,7 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 		multiValued=False,
         relationship='ref_link_internal',
         widget = ReferenceBrowserWidget(
-            label = _(u"label_link_internal", default=u"Link to Internal Content"),
+            label = _(u"label_link_internal", default=u"Internal Link"),
 			description = _(u"help_link_internal", default=u"Link to internal content. For external content, use the External Link field."),
             allow_search=True,
             allow_browse=True,
@@ -58,7 +58,7 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
         languageIndependent=True,
 		validators=("isURL"),
 		widget = atapi.StringWidget(
-            label = _(u"label_link_external", default=u"Link to external Content"),
+            label = _(u"label_link_external", default=u"External Link"),
 			description = _(u"help_link_external", default=u"Url to external content. For internal content, use the field above. Use the form http://WEBSITE.TLD/"),
         ),
 	),
