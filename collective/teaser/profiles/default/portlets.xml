@@ -4,8 +4,8 @@
   i18n:domain="collective.teaser">
   <portlet
     addview="collective.teaser.teaser_portlet"
-    title = "Teaser Portlet"
-    description = "Add portlet to show teasers."
+    title="Teaser Portlet"
+    description="Add portlet to show teasers."
     />
 </portlets>
 
