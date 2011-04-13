@@ -5,7 +5,7 @@
     i18n_domain="collective.teaser">
 
     <browser:resourceDirectory
-        name="collective.teaser.resources"
+        name="collective-teaser-resources"
         directory="resources"
         permission="zope.Public"
         />

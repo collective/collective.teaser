@@ -6,8 +6,8 @@
  <property name="title" i18n:translate="content_title">Teaser</property>
  <property name="description"
      i18n:translate="content_description">Teaser are flyers, advertisements or the like, which link to teaseed content internally or externally.</property>
- <property name="content_icon">++resource++collective.teaser.resources/teaser_icon.png</property>
-
+ <property name="icon_expr"></property>
+ 
  <property name="content_meta_type">Teaser</property>
  <property name="product">collective.teaser</property>
  <property name="factory">addTeaser</property>
