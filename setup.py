@@ -30,6 +30,7 @@ setup(name='collective.teaser',
           'setuptools',
           # -*- Extra requirements: -*-
           'archetypes.referencebrowserwidget',
+          'plone.app.portlets',
       ],
       entry_points="""
       # -*- Entry points: -*-
