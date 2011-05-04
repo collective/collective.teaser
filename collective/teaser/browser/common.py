@@ -26,9 +26,70 @@ def teaser_default_available(portlet, manager, context):
     return True
 
 
-def _teaserlist_cachekey(method, self):
-    return (self.data.id,
+def _teaserlist_cachekey(method, context, data):
+    return (data.id,
             time() // (60 * CACHETIME))
+
+@ram.cache(_teaserlist_cachekey)
+def _teaserlist(context, data):
+    import pdb;pdb.set_trace()
+    context = aq_inner(context)
+    cat = getToolByName(context,'portal_catalog')
+    query = {}
+    query['Type'] = 'Teaser'
+    # show only selected importances
+    query['importance'] = data.importance_levels
+    # show only published and not expired, even for admins
+    query['review_state'] = 'published'
+    query['effectiveRange'] = DateTime()
+    brains = cat(**query)
+    # make a weighted (multiplied by importance) list of teasers.
+    teasers = []
+    [teasers.extend(int(brain.importance) * [brain]) for brain in brains]
+    return teasers
+
+def get_teasers(context, data, request):
+    teasers = _teaserlist(context, data)
+    if not teasers: return None
+
+    # get used id's from request and exclude em
+    taken_teasers = getattr(request, 'teasers', [])
+
+    choosen_teasers = []
+    for cnt in range(data.num_teasers):
+
+        # reduce selected teasers with all taken_teasers
+        teasers = [teaser for teaser in teasers
+                  if teaser.id not in taken_teasers]
+        if not teasers: break
+
+        # randomly select num_teasers from all
+        choosen_teaser = random.choice(teasers)
+        choosen_teasers.append(choosen_teaser.getObject())
+        taken_teasers.append(choosen_teaser.id)
+
+    # save new taken teaser list in request
+    request['teasers'] = taken_teasers
+
+    # create data structure and return
+    scale = data.image_size
+    title = data.show_title
+    altimg = data.prefer_altimage
+    # below: give "tag" the title and alt attr as unicode objects
+    # P.Archetypes.Field.ImageField.tag otherwise will throw an error
+    return [{'title': title and u'%s' % teaser.title or u'',
+             'image': altimg and getattr(teaser, 'altimage', False) and\
+                      teaser.getField('altimage').tag(teaser, scale=scale,\
+                          alt=teaser.title, title=teaser.title) or\
+                      getattr(teaser, 'image', False) and\
+                      teaser.getField('image').tag(teaser, scale=scale,\
+                          alt=teaser.title, title=teaser.title) or\
+                      None,
+             'text': teaser.text,
+             'url': teaser.getLink_internal() and\
+                    teaser.getLink_internal().absolute_url() or\
+                    teaser.link_external or None}
+            for teaser in choosen_teasers]
 
 
 class ITeaserPortlet(IPortletDataProvider):
@@ -74,65 +135,9 @@ class ITeaserPortlet(IPortletDataProvider):
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('teaser_portlet.pt')
 
-    @ram.cache(_teaserlist_cachekey)
-    def _teaserlist(self):
-        context = aq_inner(self.context)
-        cat = getToolByName(context,'portal_catalog')
-        query = {}
-        query['Type'] = 'Teaser'
-        # show only selected importances
-        query['importance'] = self.data.importance_levels
-        # show only published and not expired, even for admins
-        query['review_state'] = 'published'
-        query['effectiveRange'] = DateTime()
-        brains = cat(**query)
-        # make a weighted (multiplied by importance) list of teasers.
-        teasers = []
-        [teasers.extend(int(brain.importance) * [brain]) for brain in brains]
-        return teasers
-
-    def get_teasers(self):
-        teasers = self._teaserlist()
-        if not teasers: return None
-
-        # get used id's from request and exclude em
-        taken_teasers = getattr(self.request, 'teasers', [])
-
-        choosen_teasers = []
-        for cnt in range(self.data.num_teasers):
-
-            # reduce selected teasers with all taken_teasers
-            teasers = [teaser for teaser in teasers
-                      if teaser.id not in taken_teasers]
-            if not teasers: break
-
-            # randomly select num_teasers from all
-            choosen_teaser = random.choice(teasers)
-            choosen_teasers.append(choosen_teaser.getObject())
-            taken_teasers.append(choosen_teaser.id)
-
-        # save new taken teaser list in request
-        self.request['teasers'] = taken_teasers
-
-        # create data structure and return
-        scale = self.data.image_size
-        title = self.data.show_title
-        altimg = self.data.prefer_altimage
-        # below: give "tag" the title and alt attr as unicode objects
-        # P.Archetypes.Field.ImageField.tag otherwise will throw an error
-        return [{'title': title and u'%s' % teaser.title or u'',
-                 'image': altimg and getattr(teaser, 'altimage', False) and\
-                          teaser.getField('altimage').tag(teaser, scale=scale,\
-                              alt=teaser.title, title=teaser.title) or\
-                          getattr(teaser, 'image', False) and\
-                          teaser.getField('image').tag(teaser, scale=scale,\
-                              alt=teaser.title, title=teaser.title) or\
-                          None,
-                 'text': teaser.text,
-                 'url': teaser.getLink_internal() and\
-                        teaser.getLink_internal().absolute_url() or\
-                        teaser.link_external or None}
-                for teaser in choosen_teasers]
+    @property
+    def teasers(self):
+        return get_teasers(self.context, self.data, self.request)
 
     @property
     def available(self):

@@ -5,7 +5,7 @@
       tal:omit-tag="">
 <dl class="portlet portletTeaser"
     i18n:domain="collective.teaser"
-    tal:define="teasers view/get_teasers"
+    tal:define="teasers view/teasers"
     tal:condition="teasers">
 
     <dt class="portletHeader">
