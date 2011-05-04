@@ -32,7 +32,6 @@ def _teaserlist_cachekey(method, context, data):
 
 @ram.cache(_teaserlist_cachekey)
 def _teaserlist(context, data):
-    import pdb;pdb.set_trace()
     context = aq_inner(context)
     cat = getToolByName(context,'portal_catalog')
     query = {}
