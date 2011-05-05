@@ -1,12 +1,13 @@
 from zope.interface import implements
+from AccessControl import ClassSecurityInfo
+from Products.CMFCore.permissions import View
 try:
     from Products.LinguaPlone import public  as atapi
 except ImportError:
     # No multilingual support
     from Products.Archetypes import atapi
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
-from Products.ATContentTypes.content import base
-from Products.ATContentTypes.content import schemata
+from Products.ATContentTypes.content import base, image, schemata
 
 from collective.teaser.interfaces import ITeaser
 from collective.teaser.config import PROJECTNAME, DEFAULT_IMPORTANCE
@@ -96,12 +97,22 @@ schemata.finalizeATCTSchema(type_schema,
                             folderish=False,
                             moveDiscussion=False)
 
-class Teaser(base.ATCTContent):
+class Teaser(base.ATCTContent, image.ATCTImageTransform):
     # security = ClassSecurityInfo()
     implements(ITeaser)
 
     portal_type = "Teaser"
     _at_rename_after_creation = True
     schema = type_schema
+
+    security = ClassSecurityInfo()
+
+    security.declareProtected(View, 'tag')
+    def tag(self, **kwargs):
+        """Generate image tag using the api of the ImageField
+        """
+        if 'title' not in kwargs:
+            kwargs['title'] = self.title
+        return self.getField('image').tag(self, **kwargs)
 
 atapi.registerType(Teaser, PROJECTNAME)
