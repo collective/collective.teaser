@@ -9,12 +9,13 @@
   <i18n:registerTranslations directory="locales" />
   <include package=".browser" />
 
-  <subscriber for="collective.teaser.interfaces.ITeaser
+  <!-- cache seems not to be invalidated... fix that first! -->
+  <!--subscriber for="collective.teaser.interfaces.ITeaser
                    zope.lifecycleevent.interfaces.IObjectModifiedEvent"
               handler=".subscribers.cache_invalidate_teaserlist" />
   <subscriber for="collective.teaser.interfaces.ITeaser
                    zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-              handler=".subscribers.cache_invalidate_teaserlist" />
+              handler=".subscribers.cache_invalidate_teaserlist" /-->
 
   <utility
       component=".vocabularies.ImportanceVocabulary"

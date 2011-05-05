@@ -30,7 +30,7 @@ def _teaserlist_cachekey(method, context, data):
     return (data.id,
             time() // (60 * CACHETIME))
 
-@ram.cache(_teaserlist_cachekey)
+#@ram.cache(_teaserlist_cachekey)
 def _teaserlist(context, data):
     context = aq_inner(context)
     cat = getToolByName(context,'portal_catalog')
