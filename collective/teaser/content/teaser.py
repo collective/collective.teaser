@@ -8,6 +8,7 @@ except ImportError:
     from Products.Archetypes import atapi
 from archetypes.referencebrowserwidget.widget import ReferenceBrowserWidget
 from Products.ATContentTypes.content import base, image, schemata
+from Products.ATContentTypes.lib.historyaware import HistoryAwareMixin
 
 from collective.teaser.interfaces import ITeaser
 from collective.teaser.config import PROJECTNAME, DEFAULT_IMPORTANCE
@@ -97,7 +98,7 @@ schemata.finalizeATCTSchema(type_schema,
                             folderish=False,
                             moveDiscussion=False)
 
-class Teaser(base.ATCTContent, image.ATCTImageTransform):
+class Teaser(base.ATCTContent, image.ATCTImageTransform, HistoryAwareMixin):
     # security = ClassSecurityInfo()
     implements(ITeaser)
 
