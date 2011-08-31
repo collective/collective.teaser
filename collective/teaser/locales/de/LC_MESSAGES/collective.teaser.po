@@ -138,7 +138,12 @@ msgstr "Wählen Sie die Wichtigkeitskategorien aus, die für dieses Portlet verw
 msgid "portlet_help_num_teasers"
 msgstr "Definieren Sie die maximale Anzahl an Teasern, die in diesem Portlet gleichzeitig angezeigt werden sollen."
 
-#. Default: "Show the title of the teaser which is displayed. Note, that text defined in the teaser is always displayed, if defined"
+#. Default: "Show the description of the teaser as text below the image."
+#: ./browser/common.py:126
+msgid "portlet_help_show_description"
+msgstr "Die Beschreibung des Teasers als Text unterm Bild anzeigen."
+
+#. Default: "Show the title of the teaser."
 #: ./browser/common.py:62
 msgid "portlet_help_show_title"
 msgstr "Den Titel des Teasers anzeigen."
@@ -163,12 +168,17 @@ msgstr "Bildgröße."
 msgid "portlet_label_importance_levels"
 msgstr "Wichtigkeits Kategorien"
 
-#. Default: "Number of teasers displayed"
+#. Default: "Number of teasers"
 #: ./browser/common.py:68
 msgid "portlet_label_num_teasers"
 msgstr "Anzahl an Teasern"
 
-#. Default: "Show the teasers title"
+#. Default: "Show description"
+#: ./browser/common.py:125
+msgid "portlet_label_show_description"
+msgstr "Beschreibung anzeigen"
+
+#. Default: "Show title"
 #: ./browser/common.py:61
 msgid "portlet_label_show_title"
 msgstr "Titel Anzeigen"

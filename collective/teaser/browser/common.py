@@ -72,11 +72,10 @@ def get_teasers(context, data, request):
 
     # create data structure and return
     scale = data.image_size
-    title = data.show_title
+    show_title = data.show_title
+    show_desc = data.show_description
     altimg = data.prefer_altimage
-    # below: give "tag" the title and alt attr as unicode objects
-    # P.Archetypes.Field.ImageField.tag otherwise will throw an error
-    return [{'title': title and u'%s' % teaser.title or u'',
+    return [{'title': show_title and teaser.title or None,
              'image': altimg and getattr(teaser, 'altimage', False) and\
                       teaser.getField('altimage').tag(teaser, scale=scale,\
                           alt=teaser.title, title=teaser.title) or\
@@ -84,7 +83,7 @@ def get_teasers(context, data, request):
                       teaser.getField('image').tag(teaser, scale=scale,\
                           alt=teaser.title, title=teaser.title) or\
                       None,
-             'text': teaser.text,
+             'description': show_desc and teaser.Description() or None,
              'url': teaser.getLink_internal() and\
                     teaser.getLink_internal().absolute_url() or\
                     teaser.link_external or None}
@@ -118,14 +117,17 @@ class ITeaserPortlet(IPortletDataProvider):
         default=False)
 
     show_title = schema.Bool(
-        title=_(u'portlet_label_show_title', default=u'Show the teasers title'),
-        description=_(u'portlet_help_show_title', default=u'Show the title of the teaser which is displayed. '\
-                u'Note, that text defined in the teaser is always displayed, '\
-                u'if defined'),
+        title=_(u'portlet_label_show_title', default=u'Show title'),
+        description=_(u'portlet_help_show_title', default=u'Show the title of the teaser.'),
+        default=True)
+
+    show_description = schema.Bool(
+        title=_(u'portlet_label_show_description', default=u'Show description'),
+        description=_(u'portlet_help_show_description', default=u'Show the description of the teaser as text below the image.'),
         default=True)
 
     num_teasers = schema.Int(
-        title=_(u'portlet_label_num_teasers', default=u'Number of teasers displayed'),
+        title=_(u'portlet_label_num_teasers', default=u'Number of teasers'),
         description=_(u'portlet_help_num_teasers', default=u'Define the maximum number of teasers, '\
                 u'which are displayed in this portlet'),
         default=1)
@@ -152,15 +154,19 @@ class Renderer(base.Renderer):
 class Assignment(base.Assignment):
     implements(ITeaserPortlet)
 
+    show_description = False
+
     def __init__(self, importance_levels=None,
             image_size=None,
             prefer_altimage=False,
             show_title=True,
+            show_description=False,
             num_teasers=1):
         self.importance_levels = importance_levels
         self.image_size = image_size
         self.prefer_altimage = prefer_altimage
         self.show_title=show_title
+        self.show_description=show_description
         self.num_teasers=num_teasers
 
     @property

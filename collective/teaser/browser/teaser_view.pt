@@ -18,10 +18,6 @@
       <strong><span omit-tag="" i18n:translate="label_altimage">Alternative Image</span>:</strong>
       <tal:img replace="structure context/altimage/tag" />
     </p>
-    <p tal:condition="context/text|nothing">
-      <strong><span omit-tag="" i18n:translate="label_text">Text</span>:</strong>
-      <tal:field metal:use-macro="python:context.widget('text', mode='view')" />
-    </p>
     <p tal:condition="context/link_internal|nothing">
       <strong><span omit-tag="" i18n:translate="label_link_internal">Internal Link</span>:</strong>
       <tal:field metal:use-macro="python:context.widget('link_internal', mode='view')" />

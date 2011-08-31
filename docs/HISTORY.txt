@@ -4,6 +4,9 @@ Changelog
 1.0dev (unreleased)
 -------------------
 
+- Remove text field and use optionally the description field instead.
+  [thet]
+
 - Add Teaser to image_types in portal_atct to allow image scale recreation.
   [thet]
 

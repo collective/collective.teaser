@@ -21,7 +21,7 @@
     <tal:cond condition="teaser/image">
         <tal:img replace="structure teaser/image" /><br/>
     </tal:cond>
-    <p tal:condition="teaser/text" tal:content="teaser/text">TEXT</p>
+    <p tal:condition="teaser/description" tal:content="teaser/description">TEXT</p>
     </a>
     </dd>
     </tal:rep>
