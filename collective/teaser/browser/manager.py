@@ -10,4 +10,4 @@ from collective.teaser.interfaces import ITeaserPortletManager
 
 class TeaserPortletManagerRenderer(ColumnPortletManagerRenderer):
     adapts(Interface, IDefaultBrowserLayer, IBrowserView, ITeaserPortletManager)
-    template = ViewPageTemplateFile('teaser_portlet_renderer.pt')
+    template = ViewPageTemplateFile('teaser_portlet_manager_renderer.pt')

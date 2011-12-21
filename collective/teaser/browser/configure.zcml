@@ -21,15 +21,15 @@
 
     <plone:portlet
         name="collective.teaser.teaser_portlet"
-        interface=".common.ITeaserPortlet"
-        assignment=".common.Assignment"
-        renderer=".common.Renderer"
-        addview=".common.AddForm"
-        editview=".common.EditForm" />
+        interface=".portlet.ITeaserPortlet"
+        assignment=".portlet.Assignment"
+        renderer=".portlet.Renderer"
+        addview=".portlet.AddForm"
+        editview=".portlet.EditForm" />
 
     <adapter
-        factory=".common.teaser_default_available"
-        for="collective.teaser.browser.common.ITeaserPortlet
+        factory=".portlet.teaser_default_available"
+        for="collective.teaser.browser.portlet.ITeaserPortlet
              plone.portlets.interfaces.IPortletManager
              plone.portlets.interfaces.ILocalPortletAssignable" />
     
