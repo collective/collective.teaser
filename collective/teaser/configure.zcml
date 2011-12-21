@@ -9,6 +9,7 @@
   <i18n:registerTranslations directory="locales" />
   <include package=".browser" />
 
+  <!-- XXX: remove -->
   <!-- cache seems not to be invalidated... fix that first! -->
   <!--subscriber for="collective.teaser.interfaces.ITeaser
                    zope.lifecycleevent.interfaces.IObjectModifiedEvent"
