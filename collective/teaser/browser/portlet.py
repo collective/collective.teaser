@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import uuid
+from node.utils import instance_property
 from zope.component import (
     getUtility,
     getMultiAdapter,
@@ -8,6 +9,7 @@ from zope.component import (
 from zope.formlib import form
 from zope.interface import implements, implementer
 from zope import schema
+from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.portlets import base
 from plone.app.portlets.interfaces import (
@@ -19,6 +21,7 @@ from Acquisition import (
     aq_base,
     aq_parent,
 )
+from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from collective.teaser.interfaces import IPortletAvailable
@@ -40,7 +43,7 @@ def get_portlet_assingment(context, uid):
             for group in category.values():
                 for assignment in group.values():
                     if ITeaserPortlet.providedBy(assignment):
-                        if uid == assignment.uid:
+                        if uid == str(assignment.uid):
                             return assignment
         context = aq_inner(context)
         while True:
@@ -51,11 +54,37 @@ def get_portlet_assingment(context, uid):
                 return
             for assignment in assignment_mapping.values():
                 if ITeaserPortlet.providedBy(assignment):
-                    if uid == assignment.uid:
+                    if uid == str(assignment.uid):
                         return assignment
             if IPloneSiteRoot.providedBy(context):
                 break
             context = aq_parent(aq_inner(context))
+
+
+class TeaserRenderer(object):
+    template = PageTemplateFile('teaser.pt')
+    
+    def __init__(self, context, data, request):
+        self.context = context
+        self.data = data
+        self.request = request
+    
+    def __call__(self):
+        return self.template(options=self)
+    
+    @instance_property
+    def teasers(self):
+        return get_teasers(self.context, self.data, self.request)
+
+
+class AjaxTeaser(BrowserView):
+    
+    def __call__(self):
+        return TeaserRenderer(self.context, self.data, self.request)()
+    
+    @property
+    def data(self):
+        return get_portlet_assingment(self.context, self.request.get('uid'))
 
 
 class ITeaserPortlet(IPortletDataProvider):
@@ -104,15 +133,31 @@ class ITeaserPortlet(IPortletDataProvider):
                               u'are displayed in this portlet'),
         default=1,
         )
+    
+    ajaxified = schema.Bool(
+        title=_(u'portlet_label_ajaxified', default=u'Load Teasers via AJAX?'),
+        description=_(u'portlet_help_ajaxified',
+                      default=u'Whether teaser is loaded deferred via ajax.' +\
+                              u'or directly.'),
+        default=True,
+        )
 
 
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('teaser_portlet.pt')
 
-    @property
-    def teasers(self):
-        return get_teasers(self.context, self.data, self.request)
+    @instance_property
+    def renderer(self):
+        return TeaserRenderer(self.context, self.data, self.request)
 
+    @property
+    def display(self):
+        return bool(self.renderer.teasers)
+    
+    @property
+    def rendered_teasers(self):
+        return self.renderer()
+    
     @property
     def available(self):
         context = aq_inner(self.context)
@@ -136,13 +181,15 @@ class Assignment(base.Assignment):
             teaser_scale=None,
             show_title=True,
             show_description=False,
-            num_teasers=1):
+            num_teasers=1,
+            ajaxified=True):
         self.uid = uuid.uuid4()
         self.importance_levels = importance_levels
         self.teaser_scale = teaser_scale
         self.show_title=show_title
         self.show_description=show_description
         self.num_teasers=num_teasers
+        self.ajaxified = ajaxified
 
     @property
     def title(self):

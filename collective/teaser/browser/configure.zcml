@@ -19,6 +19,13 @@
         permission="zope2.View"
         layer="collective.teaser.interfaces.ITeaserLayer" />
 
+    <browser:page
+        for="*"
+        name="ajax_teaser"
+        class=".portlet.AjaxTeaser"
+        permission="zope2.View"
+        layer="collective.teaser.interfaces.ITeaserLayer" />
+    
     <plone:portlet
         name="collective.teaser.teaser_portlet"
         interface=".portlet.ITeaserPortlet"

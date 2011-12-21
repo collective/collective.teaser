@@ -6,8 +6,7 @@
 
 <dl class="portlet portletTeaser"
     i18n:domain="collective.teaser"
-    tal:define="teasers view/teasers"
-    tal:condition="teasers">
+    tal:condition="view/display">
 
   <dt class="portletHeader">
     <span class="portletTopLeft"></span>
@@ -15,19 +14,14 @@
     <span class="portletTopRight"></span>
   </dt>
 
-  <tal:rep repeat="teaser teasers">
-    <dd class="portletItem">
-      <a href="" tal:attributes="href teaser/url">
-        <h3 tal:condition="teaser/title" tal:content="teaser/title" />
-        <tal:cond condition="teaser/image">
-          <tal:img replace="structure teaser/image" /><br/>
-        </tal:cond>
-        <p tal:condition="teaser/description" tal:content="teaser/description">
-          TEXT
-        </p>
-      </a>
-    </dd>
-  </tal:rep>
+  <tal:ajaxified condition="view/data/ajaxified">
+    <div class="ajax_teaser"
+         tal:attributes="id string:teaser-${view/data/uid}"></div>
+  </tal:ajaxified>
+  
+  <tal:noajax condition="not:view/data/ajaxified">
+    <tal:teasers replace="structure view/rendered_teasers" />
+  </tal:noajax>
 
 </dl>
 </html>

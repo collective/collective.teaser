@@ -29,7 +29,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="collective.teaser: default"
+      title="collective.teaser"
       directory="profiles/default"
       description="Installation and configuration."
       provides="Products.GenericSetup.interfaces.EXTENSION"
