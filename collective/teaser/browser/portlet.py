@@ -1,18 +1,26 @@
 # -*- coding: utf-8 -*-
+import uuid
 from zope.component import (
+    getUtility,
     getMultiAdapter,
     queryMultiAdapter,
 )
 from zope.formlib import form
 from zope.interface import implements, implementer
 from zope import schema
-from plone.app.portlets.portlets import base
 from plone.portlets.interfaces import IPortletDataProvider
+from plone.app.portlets.portlets import base
+from plone.app.portlets.interfaces import (
+    IPortletManager,
+    IPortletAssignmentMapping,
+)
 from Acquisition import (
     aq_inner,
     aq_base,
+    aq_parent,
 )
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 from collective.teaser.interfaces import IPortletAvailable
 from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
@@ -22,6 +30,32 @@ from collective.teaser.browser.common import get_teasers
 @implementer(IPortletAvailable)
 def teaser_default_available(portlet, manager, context):
     return True
+
+
+def get_portlet_assingment(context, uid):
+    for name in [u"plone.leftcolumn", u"plone.rightcolumn",
+                 u"collective.teaser.portletmanager"]:
+        manager = getUtility(IPortletManager, name=name)
+        for category in manager.values():
+            for group in category.values():
+                for assignment in group.values():
+                    if ITeaserPortlet.providedBy(assignment):
+                        if uid == assignment.uid:
+                            return assignment
+        context = aq_inner(context)
+        while True:
+            try:
+                assignment_mapping = getMultiAdapter((context, manager),
+                                                     IPortletAssignmentMapping)
+            except:
+                return
+            for assignment in assignment_mapping.values():
+                if ITeaserPortlet.providedBy(assignment):
+                    if uid == assignment.uid:
+                        return assignment
+            if IPloneSiteRoot.providedBy(context):
+                break
+            context = aq_parent(aq_inner(context))
 
 
 class ITeaserPortlet(IPortletDataProvider):
@@ -103,6 +137,7 @@ class Assignment(base.Assignment):
             show_title=True,
             show_description=False,
             num_teasers=1):
+        self.uid = uuid.uuid4()
         self.importance_levels = importance_levels
         self.teaser_scale = teaser_scale
         self.show_title=show_title
