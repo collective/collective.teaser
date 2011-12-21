@@ -1,0 +1,19 @@
+<div id="portlets-teaser"
+     class="row"
+     i18n:domain="plone"
+     tal:condition="view/display">
+    <tal:block>
+        <div class="portlets-teaser-wrapper"
+             tal:content="structure provider:collective.teaser.portletmanager" /> 
+    </tal:block>
+</div>
+
+<div class="manageTeaserPortletsLink"
+     tal:condition="view/canManagePortlets">
+    <a href="" 
+       class="managePortletsFallback"
+       tal:attributes="href view/manageUrl"
+       i18n:translate="manage_portlets_teaser_link">
+      Add, edit or remove teaser portlets
+    </a>
+</div>

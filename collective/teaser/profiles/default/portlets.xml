@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <portlets xmlns:i18n="http://xml.zope.org/namespaces/i18n"
           i18n:domain="collective.teaser">
+    
+  <portletmanager 
+      name="collective.teaser.portletmanager"
+      type="collective.teaser.interfaces.ITeaserPortletManager" />
           
   <portlet
     addview="collective.teaser.teaser_portlet"
     title="Teaser Portlet"
-    description="Add portlet to show teasers." />
-    
+    description="Add portlet to show teasers.">
+      <for interface="plone.app.portlets.interfaces.IColumn"/>
+      <for interface="collective.teaser.interfaces.ITeaserPortletManager"/>
+  </portlet>
+  
 </portlets>
 
 

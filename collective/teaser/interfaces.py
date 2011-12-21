@@ -1,4 +1,18 @@
-from zope.interface import Interface, Attribute
+from zope.interface import (
+    Interface,
+    Attribute,
+)
+from plone.portlets.interfaces import IPortletManager
+
+
+class ITeaser(Interface):
+    """Marker interface.
+    """
+
+
+class ITeaserLayer(Interface):
+    """Browser Layer for teaser.
+    """
 
 
 class IPortletAvailable(Interface):
@@ -12,6 +26,7 @@ class IPortletAvailable(Interface):
     context = Attribute(u"""The context, this portlet is shown""")
 
 
-class ITeaser(Interface):
-    """ Marker interface
+class ITeaserPortletManager(IPortletManager):
+    """The IColumn bit means that we can add all the portlets available to 
+    the right-hand and left-hand column portlet managers
     """

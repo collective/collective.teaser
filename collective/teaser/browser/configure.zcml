@@ -10,14 +10,14 @@
         name="collective-teaser-resources"
         directory="resources"
         permission="zope.Public"
-        />
+        layer="collective.teaser.interfaces.ITeaserLayer" />
 
     <browser:page
         for="..interfaces.ITeaser"
         name="view"
         template="teaser_view.pt"
         permission="zope2.View"
-        />
+        layer="collective.teaser.interfaces.ITeaserLayer" />
 
     <plone:portlet
         name="collective.teaser.teaser_portlet"
@@ -25,13 +25,32 @@
         assignment=".common.Assignment"
         renderer=".common.Renderer"
         addview=".common.AddForm"
-        editview=".common.EditForm"
-        />
+        editview=".common.EditForm" />
 
     <adapter
         factory=".common.teaser_default_available"
         for="collective.teaser.browser.common.ITeaserPortlet
              plone.portlets.interfaces.IPortletManager
              plone.portlets.interfaces.ILocalPortletAssignable" />
+    
+    <browser:viewlet
+        name="collective.teaser.portlets"
+        class=".viewlets.TeaserPortletsViewlet"
+        manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+        layer="collective.teaser.interfaces.ITeaserLayer"
+        permission="zope2.View"
+        template="teaser_portlets.pt" />
+
+    <browser:page
+        name="manage-teaserportlets"
+        for="plone.portlets.interfaces.ILocalPortletAssignable"
+        class="plone.app.portlets.browser.manage.ManageContextualPortlets"
+        template="manage_teaser_portlets.pt"
+        permission="plone.app.portlets.ManagePortlets"
+        layer="collective.teaser.interfaces.ITeaserLayer" />
+  
+    <adapter
+        factory="collective.teaser.browser.manager.TeaserPortletManagerRenderer"
+        provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
 </configure>
