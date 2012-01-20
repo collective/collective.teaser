@@ -12,18 +12,15 @@ def _teaserlist(context, data):
     cat = getToolByName(context,'portal_catalog')
     query = {}
     query['Type'] = 'Teaser'
-    
+
     # show only selected importances
     query['importance'] = data.importance_levels
-    
-    # scale images gets displayed
-    query['teaser_scale'] = data.teaser_scale
-    
+
     # show only published and not expired, even for admins
     query['review_state'] = 'published'
     query['effectiveRange'] = DateTime()
     brains = cat(**query)
-    
+
     # make a weighted (multiplied by importance) list of teasers.
     teasers = []
     [teasers.extend(int(brain.importance) * [brain]) for brain in brains]

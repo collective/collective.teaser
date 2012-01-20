@@ -20,16 +20,6 @@
       <tal:img replace="structure context/image/tag" />
     </p>
     
-    <p tal:condition="context/teaser_scale">
-      <strong>
-        <span omit-tag="" i18n:translate="label_teaser_scale">
-          Alternative Image
-        </span>
-        :
-      </strong>
-      <tal:field replace="structure context/teaser_scale" />
-    </p>
-    
     <p tal:condition="context/link_internal|nothing">
       <strong>
         <span omit-tag="" i18n:translate="label_link_internal">

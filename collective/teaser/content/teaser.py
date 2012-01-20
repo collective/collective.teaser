@@ -30,18 +30,7 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
                           default=u"Image to display as teaser."),
         ),
     ),
-    
-    atapi.StringField('teaser_scale',
-        required=True,
-        languageIndependent=True,
-        vocabulary_factory="collective.teaser.ImageScaleVocabulary",
-        widget=atapi.SelectionWidget(
-            label=_(u"label_teaser_scale", default=u"Teaser Image Scale"),
-            description=_(u"help_teaser_scale",
-                          default=u"The scale this Teaser is displayed."),
-        ),
-    ),
-    
+
     atapi.ReferenceField('link_internal',
         required=False,
         searchable=False,
@@ -73,7 +62,7 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
                                   u"form http://WEBSITE.TLD/"),
         ),
     ),
-    
+
     atapi.StringField('importance',
         required=True,
         searchable=True,

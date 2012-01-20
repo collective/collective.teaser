@@ -1,14 +1,6 @@
 <object name="portal_catalog" meta_type="Plone Catalog Tool">
-
- <index name="teaser_scale" meta_type="FieldIndex">
-  <indexed_attr value="teaser_scale"/>
- </index>
- 
  <index name="importance" meta_type="FieldIndex">
   <indexed_attr value="importance"/>
  </index>
- 
  <column value="importance"/>
- 
 </object>
-
