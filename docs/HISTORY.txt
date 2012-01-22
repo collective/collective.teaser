@@ -4,6 +4,10 @@ Changelog
 2.0dev (unreleased)
 -------------------
 
+- Remove IPortletAvailable adapter, which was a overcomponentized
+  proof-of-concept and too complicated to be used.
+  [thet]
+
 - Furthur simplify the portlet options. No show_title or show_description
   options any more, instead override the portlet template via jbot or do some
   css styling, if you need to.

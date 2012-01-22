@@ -34,12 +34,6 @@
         addview=".portlet.AddForm"
         editview=".portlet.EditForm" />
 
-    <adapter
-        factory=".portlet.teaser_default_available"
-        for="collective.teaser.browser.portlet.ITeaserPortlet
-             plone.portlets.interfaces.IPortletManager
-             plone.portlets.interfaces.ILocalPortletAssignable" />
-    
     <browser:viewlet
         name="collective.teaser.portlets"
         class=".viewlets.TeaserPortletsViewlet"

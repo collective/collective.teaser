@@ -3,11 +3,10 @@ import uuid
 from node.utils import instance_property
 from zope.component import (
     getUtility,
-    getMultiAdapter,
-    queryMultiAdapter,
+    getMultiAdapter
 )
 from zope.formlib import form
-from zope.interface import implements, implementer
+from zope.interface import implements
 from zope import schema
 from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 from plone.portlets.interfaces import IPortletDataProvider
@@ -18,21 +17,14 @@ from plone.app.portlets.interfaces import (
 )
 from Acquisition import (
     aq_inner,
-    aq_base,
     aq_parent,
 )
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFPlone.interfaces import IPloneSiteRoot
-from collective.teaser.interfaces import IPortletAvailable
 from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
 from collective.teaser.browser.common import get_teasers
-
-
-@implementer(IPortletAvailable)
-def teaser_default_available(portlet, manager, context):
-    return True
 
 
 def get_portlet_assingment(context, uid):
@@ -155,19 +147,6 @@ class Renderer(base.Renderer):
     @property
     def rendered_teasers(self):
         return self.renderer()
-
-    @property
-    def available(self):
-        context = aq_inner(self.context)
-        assignment = aq_base(self.data)
-        # first try to get a named multi adapter, then an unnamed
-        available = queryMultiAdapter(
-            (assignment, self.manager, context),
-            IPortletAvailable,
-            name=assignment.id,
-            default=getMultiAdapter((assignment, self.manager, context),
-                                    IPortletAvailable))
-        return available
 
 
 class Assignment(base.Assignment):
