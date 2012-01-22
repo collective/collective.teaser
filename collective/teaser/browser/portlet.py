@@ -101,6 +101,18 @@ class ITeaserPortlet(IPortletDataProvider):
             vocabulary="collective.teaser.ImportanceVocabulary"),
         )
 
+    keywords_filter = schema.Tuple(
+        title=_(u'portlet_label_keywords_filter',
+                default=u'Keywords Filter'),
+        description=_(u'portlet_help_keywords_filter',
+                      default=u'Select which teasers with specific keywords '
+                              u'should be shown. Select none to order to show '
+                              u'any teasers.'),
+        default=(),
+        value_type=schema.Choice(
+            vocabulary="plone.app.vocabularies.Keywords"),
+        )
+
     teaser_scale = schema.Choice(
         title=_(u'portlet_label_image_scale', default=u'Image Scale'),
         description=_(u'portlet_help_image_scale',
@@ -161,11 +173,13 @@ class Assignment(base.Assignment):
     implements(ITeaserPortlet)
 
     def __init__(self, importance_levels=None,
+            keywords_filter=None,
             teaser_scale=None,
             num_teasers=1,
             ajaxified=True):
         self.uid = uuid.uuid4()
         self.importance_levels = importance_levels
+        self.keywords_filter = keywords_filter
         self.teaser_scale = teaser_scale
         self.num_teasers=num_teasers
         self.ajaxified = ajaxified
