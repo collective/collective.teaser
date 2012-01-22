@@ -9,7 +9,9 @@ from zope.formlib import form
 from zope.interface import implements
 from zope import schema
 from zope.pagetemplate.pagetemplatefile import PageTemplateFile
+from plone.memoize import ram
 from plone.portlets.interfaces import IPortletDataProvider
+from plone.app.portlets.cache import render_cachekey
 from plone.app.portlets.portlets import base
 from plone.app.portlets.interfaces import (
     IPortletManager,
@@ -136,6 +138,7 @@ class ITeaserPortlet(IPortletDataProvider):
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('teaser_portlet.pt')
 
+    #@ram.cache(render_cachekey)
     @instance_property
     def renderer(self):
         return TeaserRenderer(self.context, self.data, self.request)

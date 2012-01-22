@@ -20,6 +20,20 @@ it's defined), customize the teaser template with z3c.jbot or do some css
 styling.
 
 
+TODO
+----
+* Ajax deferring does not easily work with Diazo. Maybe integrate 'ajax_load'
+  in request.form parameters (see plone.app.theming). 
+
+* When the teaser is going to be displayed on a default page, the teaser is
+  called twice. This seems to be a bug/default-page-sideeffect in Plone.
+  When only one teaser is available for that portlet, on the second call it's
+  removed from the available teasers, since it's already in the taken_teasers
+  list. As a result, no teaser is shown. A workaround would be to cache the
+  call to get the teasers list with plone.app.portlets.cache.render_cachekey.
+  Only, that method is already a instance_property, caching with plone.memoize
+  fails.
+
 Copyright
 ---------
 
