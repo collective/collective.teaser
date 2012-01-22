@@ -108,7 +108,7 @@ class ITeaserPortlet(IPortletDataProvider):
                       default=u'Select which teasers with specific keywords '
                               u'should be shown. Select none to order to show '
                               u'any teasers.'),
-        default=(),
+        default=None,
         required=False,
         value_type=schema.Choice(
             vocabulary="plone.app.vocabularies.Keywords"),
