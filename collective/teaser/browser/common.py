@@ -21,25 +21,9 @@ def _teaserlist(context, data):
     query['effectiveRange'] = DateTime()
     brains = cat(**query)
 
-    no_h = 'exclude_horizontal' in data.exclude_scales
-    no_v = 'exclude_vertical' in data.exclude_scales
-    no_q = 'exclude_quadratic' in data.exclude_scales
-    filtered_teasers = []
-    if no_h or no_v or no_q:
-        for brain in brains:
-            img = brain.getObject().getImage()
-            scale = img.width / img.height
-            if no_h and scale<1 or\
-               no_v and scale>1 or\
-               no_q and scale!=1:
-                filtered_teasers.append(brain)
-    else:
-        filtered_teasers = brains
-
     # make a weighted (multiplied by importance) list of teasers.
     teasers = []
-    [teasers.extend(int(teaser.importance) * [teaser])
-            for teaser in filtered_teasers]
+    [teasers.extend(int(teaser.importance) * [teaser]) for teaser in brains]
     return teasers
 
 
@@ -67,18 +51,16 @@ def get_teasers(context, data, request):
 
     # create data structure and return
     scale = data.teaser_scale
-    show_title = data.show_title
-    show_desc = data.show_description
     return [
         {
-            'title': show_title and teaser.title or None,
+            'title': teaser.title or None,
             'image': getattr(teaser, 'image', False) \
                          and teaser.getField('image').tag(
                              teaser,
                              scale=scale,
                              alt=teaser.title,
                              title=teaser.title) or None,
-             'description': show_desc and teaser.Description() or None,
+             'description': teaser.Description() or None,
              'url': teaser.getLink_internal() \
                         and teaser.getLink_internal().absolute_url() \
                         or teaser.link_external or None,

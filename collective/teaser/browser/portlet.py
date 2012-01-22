@@ -111,18 +111,6 @@ class ITeaserPortlet(IPortletDataProvider):
         vocabulary="collective.teaser.ImageScaleVocabulary",
         )
 
-    exclude_scales = schema.Tuple(
-        title=_(u'portlet_label_exclude_scales',
-                default=u'Exclude Image Scales'),
-        description=_(u'portlet_help_exclude_scales',
-                      default=u'Select which image scales should not be shown'
-                              u'in the portlet.'),
-        default=(),
-        required=False,
-        value_type=schema.Choice(
-            vocabulary="collective.teaser.ExcludeScaleVocabulary"),
-        )
-
     num_teasers = schema.Int(
         title=_(u'portlet_label_num_teasers', default=u'Number of teasers'),
         description=_(u'portlet_help_num_teasers',
@@ -174,13 +162,11 @@ class Assignment(base.Assignment):
 
     def __init__(self, importance_levels=None,
             teaser_scale=None,
-            exclude_scales=(),
             num_teasers=1,
             ajaxified=True):
         self.uid = uuid.uuid4()
         self.importance_levels = importance_levels
         self.teaser_scale = teaser_scale
-        self.exclude_scales=exclude_scales
         self.num_teasers=num_teasers
         self.ajaxified = ajaxified
 
