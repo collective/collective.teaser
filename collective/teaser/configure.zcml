@@ -26,6 +26,11 @@
       component=".vocabularies.ImageScaleVocabulary"
       name="collective.teaser.ImageScaleVocabulary"
   />
+  <utility
+      component=".vocabularies.ExcludeScaleVocabulary"
+      name="collective.teaser.ExcludeScaleVocabulary"
+  />
+
 
   <genericsetup:registerProfile
       name="default"

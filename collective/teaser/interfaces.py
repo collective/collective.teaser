@@ -9,11 +9,9 @@ class ITeaser(Interface):
     """Marker interface.
     """
 
-
 class ITeaserLayer(Interface):
     """Browser Layer for teaser.
     """
-
 
 class IPortletAvailable(Interface):
     """Interface for Adapters, implementing logic to determine, if the
@@ -24,7 +22,6 @@ class IPortletAvailable(Interface):
     manager = Attribute(u"""The portlet manager""")
 
     context = Attribute(u"""The context, this portlet is shown""")
-
 
 class ITeaserPortletManager(IPortletManager):
     """The IColumn bit means that we can add all the portlets available to

@@ -21,9 +21,25 @@ def _teaserlist(context, data):
     query['effectiveRange'] = DateTime()
     brains = cat(**query)
 
+    no_h = 'exclude_horizontal' in data.exclude_scales
+    no_v = 'exclude_vertical' in data.exclude_scales
+    no_q = 'exclude_quadratic' in data.exclude_scales
+    filtered_teasers = []
+    if no_h or no_v or no_q:
+        for brain in brains:
+            img = brain.getObject().getImage()
+            scale = img.width / img.height
+            if no_h and scale<1 or\
+               no_v and scale>1 or\
+               no_q and scale!=1:
+                filtered_teasers.append(brain)
+    else:
+        filtered_teasers = brains
+
     # make a weighted (multiplied by importance) list of teasers.
     teasers = []
-    [teasers.extend(int(brain.importance) * [brain]) for brain in brains]
+    [teasers.extend(int(teaser.importance) * [teaser])
+            for teaser in filtered_teasers]
     return teasers
 
 

@@ -80,11 +80,6 @@ type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
     ),
 ))
 
-type_schema['description'].widget.visible = {
-    'view': 'invisible',
-    'edit': 'invisible',
-}
-
 schemata.finalizeATCTSchema(type_schema,
                             folderish=False,
                             moveDiscussion=False)

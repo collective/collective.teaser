@@ -63,25 +63,25 @@ def get_portlet_assingment(context, uid):
 
 class TeaserRenderer(object):
     template = PageTemplateFile('teaser.pt')
-    
+
     def __init__(self, context, data, request):
         self.context = context
         self.data = data
         self.request = request
-    
+
     def __call__(self):
         return self.template(options=self)
-    
+
     @instance_property
     def teasers(self):
         return get_teasers(self.context, self.data, self.request)
 
 
 class AjaxTeaser(BrowserView):
-    
+
     def __call__(self):
         return TeaserRenderer(self.context, self.data, self.request)()
-    
+
     @property
     def data(self):
         return get_portlet_assingment(self.context, self.request.get('uid'))
@@ -93,7 +93,7 @@ class ITeaserPortlet(IPortletDataProvider):
         title=_(u'portlet_label_importance_levels',
                 default=u'Importance Levels'),
         description=_(u'portlet_help_importance_levels',
-                      default=u'Select which importance levels the portlet ' +\
+                      default=u'Select which importance levels the portlet '
                               u'should show.'),
         default=(DEFAULT_IMPORTANCE,),
         required=True,
@@ -104,40 +104,37 @@ class ITeaserPortlet(IPortletDataProvider):
     teaser_scale = schema.Choice(
         title=_(u'portlet_label_image_scale', default=u'Image Scale'),
         description=_(u'portlet_help_image_scale',
-                      default=u'Select, which image scale should be used ' +\
+                      default=u'Select, which image scale should be used '
                               u'for the portlet.'),
         required=True,
         default=None,
         vocabulary="collective.teaser.ImageScaleVocabulary",
         )
 
-    show_title = schema.Bool(
-        title=_(u'portlet_label_show_title', default=u'Show title'),
-        description=_(u'portlet_help_show_title',
-                      default=u'Show the title of the teaser.'),
-        default=True,
-        )
-
-    show_description = schema.Bool(
-        title=_(u'portlet_label_show_description', default=u'Show description'),
-        description=_(u'portlet_help_show_description',
-                      default=u'Show the description of the teaser as text ' +\
-                              u'below the image.'),
-        default=True,
+    exclude_scales = schema.Tuple(
+        title=_(u'portlet_label_exclude_scales',
+                default=u'Exclude Image Scales'),
+        description=_(u'portlet_help_exclude_scales',
+                      default=u'Select which image scales should not be shown'
+                              u'in the portlet.'),
+        default=(),
+        required=False,
+        value_type=schema.Choice(
+            vocabulary="collective.teaser.ExcludeScaleVocabulary"),
         )
 
     num_teasers = schema.Int(
         title=_(u'portlet_label_num_teasers', default=u'Number of teasers'),
         description=_(u'portlet_help_num_teasers',
-                      default=u'Define the maximum number of teasers, which ' +\
+                      default=u'Define the maximum number of teasers, which '
                               u'are displayed in this portlet'),
         default=1,
         )
-    
+
     ajaxified = schema.Bool(
         title=_(u'portlet_label_ajaxified', default=u'Load Teasers via AJAX?'),
         description=_(u'portlet_help_ajaxified',
-                      default=u'Whether teaser is loaded deferred via ajax.' +\
+                      default=u'Whether teaser is loaded deferred via ajax.'
                               u'or directly.'),
         default=True,
         )
@@ -153,11 +150,11 @@ class Renderer(base.Renderer):
     @property
     def display(self):
         return bool(self.renderer.teasers)
-    
+
     @property
     def rendered_teasers(self):
         return self.renderer()
-    
+
     @property
     def available(self):
         context = aq_inner(self.context)
@@ -175,19 +172,15 @@ class Renderer(base.Renderer):
 class Assignment(base.Assignment):
     implements(ITeaserPortlet)
 
-    show_description = False
-
     def __init__(self, importance_levels=None,
             teaser_scale=None,
-            show_title=True,
-            show_description=False,
+            exclude_scales=(),
             num_teasers=1,
             ajaxified=True):
         self.uid = uuid.uuid4()
         self.importance_levels = importance_levels
         self.teaser_scale = teaser_scale
-        self.show_title=show_title
-        self.show_description=show_description
+        self.exclude_scales=exclude_scales
         self.num_teasers=num_teasers
         self.ajaxified = ajaxified
 
