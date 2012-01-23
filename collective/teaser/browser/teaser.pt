@@ -1,6 +1,6 @@
 <tal:rep repeat="teaser options/options/teasers">
   <dd class="portletItem">
-    <br tal:condition="python:repeat['teaser'].index>0"/>
+    <br tal:condition="python:repeat['teaser'].index()>0"/>
     <a href="" tal:attributes="href teaser/url">
       <h3 tal:condition="teaser/title" tal:content="teaser/title" />
       <tal:cond condition="teaser/image">
