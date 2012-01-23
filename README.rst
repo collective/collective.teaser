@@ -15,15 +15,9 @@ If you need to show specific teasers only in specific portlets (e.g. to
 distinguish between horizontal and vertical teasers), use the importance levels
 or subject filter to assign teasers to those portlets.
 
-If you need to hide the teaser's title or description (latter is only shown, if
-it's defined), customize the teaser template with z3c.jbot or do some css
-styling.
-
 
 TODO
 ----
-* Ajax deferring does not easily work with Diazo. Maybe integrate 'ajax_load'
-  in request.form parameters (see plone.app.theming). 
 
 * When the teaser is going to be displayed on a default page, the teaser is
   called twice. This seems to be a bug/default-page-sideeffect in Plone.
