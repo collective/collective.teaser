@@ -135,6 +135,22 @@ class ITeaserPortlet(IPortletDataProvider):
         )
 
 
+    show_title = schema.Bool(
+        title=_(u'portlet_label_show_title', default=u'Show title'),
+        description=_(u'portlet_help_show_title',
+                      default=u'Show the title of the teaser.'),
+        default=True,
+        )
+
+    show_description = schema.Bool(
+        title=_(u'portlet_label_show_description', default=u'Show description'),
+        description=_(u'portlet_help_show_description',
+                      default=u'Show the description of the teaser as text ' +\
+                              u'below the image.'),
+        default=False,
+        )
+
+
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('teaser_portlet.pt')
 
@@ -155,17 +171,26 @@ class Renderer(base.Renderer):
 class Assignment(base.Assignment):
     implements(ITeaserPortlet)
 
+    # avoid upgrade pain
+    show_description = False
+    keywords_filter = None
+
     def __init__(self, importance_levels=None,
             keywords_filter=None,
             teaser_scale=None,
             num_teasers=1,
-            ajaxified=True):
-        self.uid = uuid.uuid4()
+            ajaxified=True,
+            show_title=True,
+            show_description=False):
         self.importance_levels = importance_levels
         self.keywords_filter = keywords_filter
         self.teaser_scale = teaser_scale
         self.num_teasers=num_teasers
         self.ajaxified = ajaxified
+        self.show_title=show_title
+        self.show_description=show_description
+
+        self.uid = uuid.uuid4()
 
     @property
     def title(self):

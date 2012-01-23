@@ -53,20 +53,25 @@ def get_teasers(context, data, request):
     request['teasers'] = taken_teasers
 
     # create data structure and return
+    show_title = data.show_title
+    show_desc = data.show_description
     scale = data.teaser_scale
-    return [
-        {
-            'title': teaser.title or None,
+    teaser_list = []
+    for teaser in choosen_teasers:
+        img_text_part = not show_desc and teaser.Description() or ''
+        img_text = '%s%s' % (teaser.title,
+                         img_text_part and ' - %s' % img_text_part or '')
+        teaser_list.append({
+            'title': show_title and teaser.title or None,
             'image': getattr(teaser, 'image', False) \
                          and teaser.getField('image').tag(
                              teaser,
                              scale=scale,
-                             alt=teaser.title,
-                             title=teaser.title) or None,
-             'description': teaser.Description() or None,
+                             alt=img_text,
+                             title=img_text) or None,
+             'description': show_desc and teaser.Description() or None,
              'url': teaser.getLink_internal() \
                         and teaser.getLink_internal().absolute_url() \
                         or teaser.link_external or None,
-        }
-        for teaser in choosen_teasers
-    ]
+        })
+    return teaser_list
