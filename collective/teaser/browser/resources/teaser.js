@@ -7,7 +7,7 @@
             $.ajax({
                 url: 'ajax_teaser',
                 dataType: 'html',
-                data: {uid: uid},
+                data: {uid: uid, ajax_load:1},
                 success: function(data) {
                     $('#teaser-' + uid).replaceWith(data);
                 },
