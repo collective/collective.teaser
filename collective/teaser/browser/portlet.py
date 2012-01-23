@@ -11,7 +11,7 @@ from zope import schema
 from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 from plone.memoize import ram
 from plone.portlets.interfaces import IPortletDataProvider
-from plone.app.portlets.cache import render_cachekey
+from plone.app.portlets.cache import get_language
 from plone.app.portlets.portlets import base
 from plone.app.portlets.interfaces import (
     IPortletManager,
@@ -23,11 +23,37 @@ from Acquisition import (
 )
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
 from collective.teaser.browser.common import get_teasers
 
+
+
+def render_cachekey(fun, self):
+    """
+    Based on render_cachekey from plone.app.portlets.cache, without the
+    fingerprint based on the portlet's catalog brains.
+
+    Generates a key based on:
+
+    * Portal URL
+    * Negotiated language
+    * Anonymous user flag
+    * Portlet manager
+    * Assignment
+
+    """
+    context = aq_inner(self.context)
+    anonymous = getToolByName(context, 'portal_membership').isAnonymousUser()
+
+    return "".join((
+        getToolByName(aq_inner(self.context), 'portal_url')(),
+        get_language(aq_inner(self.context), self.request),
+        str(anonymous),
+        self.manager.__name__,
+        self.data.__name__))
 
 def get_portlet_assingment(context, uid):
     for name in [u"plone.leftcolumn", u"plone.rightcolumn",
@@ -154,14 +180,20 @@ class ITeaserPortlet(IPortletDataProvider):
 class Renderer(base.Renderer):
     render = ViewPageTemplateFile('teaser_portlet.pt')
 
-    #@ram.cache(render_cachekey)
-    @instance_property
+    # On default pages, portlets are called twice (parent and default page).
+    # When the teaser is going to be displayed on a default page, the teaser is
+    # called twice. This seems to be a bug/default-page-sideeffect in Plone.
+    # When only one teaser is available for that portlet, on the second call
+    # it's removed from the available teasers, since it's already in the
+    # taken_teasers list. As a result, no teaser is shown. Therefore, we cache
+    # the render call.
+    @ram.cache(render_cachekey) # cached per request
     def renderer(self):
         return TeaserRenderer(self.context, self.data, self.request)
 
     @property
     def display(self):
-        return bool(self.renderer.teasers)
+        return bool(self.renderer().teasers)
 
     @property
     def rendered_teasers(self):
