@@ -1,13 +1,12 @@
 <tal:rep repeat="teaser options/options/teasers">
   <dd class="portletItem">
+    <br tal:condition="python:repeat['teaser'].index>0"/>
     <a href="" tal:attributes="href teaser/url">
       <h3 tal:condition="teaser/title" tal:content="teaser/title" />
       <tal:cond condition="teaser/image">
-        <tal:img replace="structure teaser/image" /><br/>
+        <tal:img replace="structure teaser/image" />
       </tal:cond>
-      <p tal:condition="teaser/description" tal:content="teaser/description">
-        TEXT
-      </p>
+      <p tal:condition="teaser/description" tal:content="teaser/description"/>
     </a>
   </dd>
 </tal:rep>
