@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '2.0b1'
+version = '2.0b2'
 shortdesc = "Teaser/Banner content type for Plone"
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 longdesc += open(os.path.join(os.path.dirname(__file__), 'docs', 'HISTORY.rst')).read()
