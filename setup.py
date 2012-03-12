@@ -4,7 +4,7 @@ import os
 version = '2.0'
 shortdesc = "Teaser/Banner content type for Plone"
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
-longdesc += open(os.path.join(os.path.dirname(__file__), 'docs', 'HISTORY.rst')).read()
+longdesc += '\n' + open(os.path.join(os.path.dirname(__file__), 'docs', 'HISTORY.rst')).read()
 
 
 setup(name='collective.teaser',

@@ -5,7 +5,7 @@ Changelog
 ---
 
 - Configurable search path of teaser portlet.
-  [rnix] 
+  [rnix]
 
 
 2.0b1
