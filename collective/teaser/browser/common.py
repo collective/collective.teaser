@@ -19,6 +19,9 @@ def _teaserlist(context, data):
     if data.keywords_filter:
         query['Subject'] = data.keywords_filter
 
+    if data.search_base:
+        query['path'] = {'query': '/'.join(data.search_base.getPhysicalPath())}
+
     # show only published and not expired, even for admins
     query['review_state'] = 'published'
     query['effectiveRange'] = DateTime()

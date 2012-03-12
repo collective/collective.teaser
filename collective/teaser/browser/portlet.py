@@ -23,7 +23,7 @@ from plone.app.portlets.interfaces import (
 )
 from plone.formwidget.contenttree import (
     ContentTreeFieldWidget,
-    PathSourceBinder,
+    ObjPathSourceBinder,
 )
 from Acquisition import (
     aq_inner,
@@ -162,6 +162,7 @@ class ITeaserPortlet(IPortletDataProvider):
                       default=u'Define the maximum number of teasers, which '
                               u'are displayed in this portlet'),
         default=1,
+        required=True,
         )
 
     ajaxified = schema.Bool(
@@ -170,6 +171,7 @@ class ITeaserPortlet(IPortletDataProvider):
                       default=u'Whether teaser is loaded deferred via ajax.'
                               u'or directly.'),
         default=True,
+        required=False,
         )
 
 
@@ -178,6 +180,7 @@ class ITeaserPortlet(IPortletDataProvider):
         description=_(u'portlet_help_show_title',
                       default=u'Show the title of the teaser.'),
         default=True,
+        required=False,
         )
 
     show_description = schema.Bool(
@@ -186,13 +189,15 @@ class ITeaserPortlet(IPortletDataProvider):
                       default=u'Show the description of the teaser as text ' +\
                               u'below the image.'),
         default=False,
+        required=False,
         )
-    
+
     search_base = schema.Choice(
         title=_(u'portlet_label_search_base', default=u'Search base'),
         description=_(u'portlet_help_search_base',
                       default=u'Select teaser search base folder'),
-        source=PathSourceBinder(portal_type='Folder'),
+        source=ObjPathSourceBinder(portal_type='Folder'),
+        required=False,
         )
 
 
