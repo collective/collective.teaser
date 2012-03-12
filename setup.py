@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '2.0b3'
+version = '2.0'
 shortdesc = "Teaser/Banner content type for Plone"
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 longdesc += open(os.path.join(os.path.dirname(__file__), 'docs', 'HISTORY.rst')).read()
@@ -29,6 +29,7 @@ setup(name='collective.teaser',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'plone.formwidget.contenttree',
           'archetypes.referencebrowserwidget',
           'plone.app.portlets',
           'node',

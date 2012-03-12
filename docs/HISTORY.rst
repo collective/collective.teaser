@@ -1,8 +1,15 @@
 Changelog
 =========
 
-2.0b1 (unreleased)
--------------------
+2.0
+---
+
+- Configurable search path of teaser portlet.
+  [rnix] 
+
+
+2.0b1
+-----
 
 - Remove IPortletAvailable adapter, which was a overcomponentized
   proof-of-concept and too complicated to be used.
@@ -19,8 +26,8 @@ Changelog
   [rnix]
 
 
-1.0dev (unreleased)
--------------------
+1.0
+---
 
 - Remove text field and use optionally the description field instead.
   [thet]

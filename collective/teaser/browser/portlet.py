@@ -5,10 +5,14 @@ from zope.component import (
     getUtility,
     getMultiAdapter
 )
-from zope.formlib import form
 from zope.interface import implements
 from zope import schema
 from zope.pagetemplate.pagetemplatefile import PageTemplateFile
+#from zope.formlib import form
+from z3c.form import (
+    form,
+    field,
+)
 from plone.memoize import ram
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.cache import get_language
@@ -16,6 +20,10 @@ from plone.app.portlets.portlets import base
 from plone.app.portlets.interfaces import (
     IPortletManager,
     IPortletAssignmentMapping,
+)
+from plone.formwidget.contenttree import (
+    ContentTreeFieldWidget,
+    PathSourceBinder,
 )
 from Acquisition import (
     aq_inner,
@@ -28,7 +36,10 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
 from collective.teaser.browser.common import get_teasers
-
+from collective.teaser.browser.z3cformportlet import (
+    AddForm,
+    EditForm,
+)
 
 
 def render_cachekey(fun, self):
@@ -54,6 +65,7 @@ def render_cachekey(fun, self):
         str(anonymous),
         self.manager.__name__,
         self.data.__name__))
+
 
 def get_portlet_assingment(context, uid):
     for name in [u"plone.leftcolumn", u"plone.rightcolumn",
@@ -175,6 +187,13 @@ class ITeaserPortlet(IPortletDataProvider):
                               u'below the image.'),
         default=False,
         )
+    
+    search_base = schema.Choice(
+        title=_(u'portlet_label_search_base', default=u'Search base'),
+        description=_(u'portlet_help_search_base',
+                      default=u'Select teaser search base folder'),
+        source=PathSourceBinder(portal_type='Folder'),
+        )
 
 
 class Renderer(base.Renderer):
@@ -206,6 +225,7 @@ class Assignment(base.Assignment):
     # avoid upgrade pain
     show_description = False
     keywords_filter = None
+    search_base = None
 
     def __init__(self, importance_levels=None,
             keywords_filter=None,
@@ -213,7 +233,8 @@ class Assignment(base.Assignment):
             num_teasers=1,
             ajaxified=True,
             show_title=True,
-            show_description=False):
+            show_description=False,
+            search_base=None):
         self.importance_levels = importance_levels
         self.keywords_filter = keywords_filter
         self.teaser_scale = teaser_scale
@@ -221,7 +242,7 @@ class Assignment(base.Assignment):
         self.ajaxified = ajaxified
         self.show_title=show_title
         self.show_description=show_description
-
+        self.search_base = search_base
         self.uid = uuid.uuid4()
 
     @property
@@ -229,8 +250,9 @@ class Assignment(base.Assignment):
         return _(u'portlet_teaser_title', default=u"Teaser")
 
 
-class AddForm(base.AddForm):
-    form_fields = form.Fields(ITeaserPortlet)
+class AddForm(AddForm):
+    fields = field.Fields(ITeaserPortlet)
+    fields['search_base'].widgetFactory = ContentTreeFieldWidget
     label = _(u'portlet_label_add', default=u"Add portlet to show teasers.")
     description = _(u'portlet_help_add', default=u"This portlet shows teasers.")
 
@@ -238,7 +260,8 @@ class AddForm(base.AddForm):
         return Assignment(**data)
 
 
-class EditForm(base.EditForm):
-    form_fields = form.Fields(ITeaserPortlet)
+class EditForm(EditForm):
+    fields = field.Fields(ITeaserPortlet)
+    fields['search_base'].widgetFactory = ContentTreeFieldWidget
     label = _(u'portlet_label_add', default=u"Add portlet to show teasers.")
     description = _(u'portlet_help_add', default=u"This portlet shows teasers.")
