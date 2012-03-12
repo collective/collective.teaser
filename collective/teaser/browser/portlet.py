@@ -23,7 +23,7 @@ from plone.app.portlets.interfaces import (
 )
 from plone.formwidget.contenttree import (
     ContentTreeFieldWidget,
-    ObjPathSourceBinder,
+    PathSourceBinder,
 )
 from Acquisition import (
     aq_inner,
@@ -37,8 +37,8 @@ from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
 from collective.teaser.browser.common import get_teasers
 from collective.teaser.browser.z3cformportlet import (
-    AddForm,
-    EditForm,
+    AddForm as Z3cAddForm,
+    EditForm as Z3cEditForm,
 )
 
 
@@ -196,7 +196,7 @@ class ITeaserPortlet(IPortletDataProvider):
         title=_(u'portlet_label_search_base', default=u'Search base'),
         description=_(u'portlet_help_search_base',
                       default=u'Select teaser search base folder'),
-        source=ObjPathSourceBinder(portal_type='Folder'),
+        source=PathSourceBinder(portal_type='Folder'),
         required=False,
         )
 
@@ -255,7 +255,7 @@ class Assignment(base.Assignment):
         return _(u'portlet_teaser_title', default=u"Teaser")
 
 
-class AddForm(AddForm):
+class AddForm(Z3cAddForm):
     fields = field.Fields(ITeaserPortlet)
     fields['search_base'].widgetFactory = ContentTreeFieldWidget
     label = _(u'portlet_label_add', default=u"Add portlet to show teasers.")
@@ -265,7 +265,7 @@ class AddForm(AddForm):
         return Assignment(**data)
 
 
-class EditForm(EditForm):
+class EditForm(Z3cEditForm):
     fields = field.Fields(ITeaserPortlet)
     fields['search_base'].widgetFactory = ContentTreeFieldWidget
     label = _(u'portlet_label_add', default=u"Add portlet to show teasers.")
