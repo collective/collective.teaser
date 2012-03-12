@@ -8,11 +8,7 @@ from zope.component import (
 from zope.interface import implements
 from zope import schema
 from zope.pagetemplate.pagetemplatefile import PageTemplateFile
-#from zope.formlib import form
-from z3c.form import (
-    form,
-    field,
-)
+from zope.formlib import form
 from plone.memoize import ram
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.cache import get_language
@@ -21,10 +17,7 @@ from plone.app.portlets.interfaces import (
     IPortletManager,
     IPortletAssignmentMapping,
 )
-from plone.formwidget.contenttree import (
-    ContentTreeFieldWidget,
-    ObjPathSourceBinder,
-)
+from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from Acquisition import (
     aq_inner,
     aq_parent,
@@ -36,10 +29,6 @@ from Products.CMFPlone.interfaces import IPloneSiteRoot
 from collective.teaser.config import DEFAULT_IMPORTANCE
 from collective.teaser import MsgFact as _
 from collective.teaser.browser.common import get_teasers
-from collective.teaser.browser.z3cformportlet import (
-    AddForm,
-    EditForm,
-)
 
 
 def render_cachekey(fun, self):
@@ -196,7 +185,8 @@ class ITeaserPortlet(IPortletDataProvider):
         title=_(u'portlet_label_search_base', default=u'Search base'),
         description=_(u'portlet_help_search_base',
                       default=u'Select teaser search base folder'),
-        source=ObjPathSourceBinder(portal_type='Folder'),
+        source=SearchableTextSourceBinder({'is_folderish': True},
+                                           default_query='path:'),
         required=False,
         )
 
@@ -255,9 +245,9 @@ class Assignment(base.Assignment):
         return _(u'portlet_teaser_title', default=u"Teaser")
 
 
-class AddForm(AddForm):
-    fields = field.Fields(ITeaserPortlet)
-    fields['search_base'].widgetFactory = ContentTreeFieldWidget
+class AddForm(base.AddForm):
+    form_fields = form.Fields(ITeaserPortlet)
+    #fields['search_base'].widgetFactory = ContentTreeFieldWidget
     label = _(u'portlet_label_add', default=u"Add portlet to show teasers.")
     description = _(u'portlet_help_add', default=u"This portlet shows teasers.")
 
@@ -265,8 +255,8 @@ class AddForm(AddForm):
         return Assignment(**data)
 
 
-class EditForm(EditForm):
-    fields = field.Fields(ITeaserPortlet)
-    fields['search_base'].widgetFactory = ContentTreeFieldWidget
+class EditForm(base.EditForm):
+    form_fields = form.Fields(ITeaserPortlet)
+    #fields['search_base'].widgetFactory = ContentTreeFieldWidget
     label = _(u'portlet_label_add', default=u"Add portlet to show teasers.")
     description = _(u'portlet_help_add', default=u"This portlet shows teasers.")
