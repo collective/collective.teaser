@@ -1,6 +1,13 @@
 Changelog
 =========
 
+2.1
+---
+
+- Fix HTML validation error - div not allowed as direct descendent of dl.
+  [thet]
+
+
 2.0
 ---
 

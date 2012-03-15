@@ -13,15 +13,11 @@
     <span tal:content="view/data/title" />
     <span class="portletTopRight"></span>
   </dt>
-
   <tal:ajaxified condition="view/data/ajaxified">
-    <div class="ajax_teaser"
-         tal:attributes="id string:teaser-${view/data/uid}"></div>
+    <dd class="ajax_teaser" tal:attributes="id string:teaser-${view/data/uid}"></dd>
   </tal:ajaxified>
-  
   <tal:noajax condition="not:view/data/ajaxified">
     <tal:teasers replace="structure view/rendered_teasers" />
   </tal:noajax>
-
 </dl>
 </html>
