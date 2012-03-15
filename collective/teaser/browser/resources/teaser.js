@@ -1,7 +1,7 @@
 (function($) {
 
     $(document).ready(function() {
-        $('div.ajax_teaser', document).each(function() {
+        $('dd.ajax_teaser', document).each(function() {
             var elem = $(this);
             var uid = elem.attr('id').substring(7);
             $.ajax({
