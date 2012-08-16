@@ -110,6 +110,11 @@ class AjaxTeaser(BrowserView):
 
 class ITeaserPortlet(IPortletDataProvider):
 
+    header = schema.TextLine(
+        title=_(u"Portlet header"),
+        description=_(u"Title of the rendered portlet"),
+        required=False)
+    
     importance_levels = schema.Tuple(
         title=_(u'portlet_label_importance_levels',
                 default=u'Importance Levels'),
@@ -212,6 +217,9 @@ class Renderer(base.Renderer):
     @property
     def rendered_teasers(self):
         return self.renderer()
+    
+    def has_header(self):
+        return bool(self.data.header)
 
 
 class Assignment(base.Assignment):
@@ -229,7 +237,9 @@ class Assignment(base.Assignment):
             ajaxified=True,
             show_title=True,
             show_description=False,
-            search_base=None):
+            search_base=None,
+            header=u''):
+        self._header = header
         self.importance_levels = importance_levels
         self.keywords_filter = keywords_filter
         self.teaser_scale = teaser_scale
@@ -239,10 +249,21 @@ class Assignment(base.Assignment):
         self.show_description=show_description
         self.search_base = search_base
         self.uid = uuid.uuid4()
-
+    
+    def _get_header(self):
+        if not hasattr(self, '_header'):
+            self._header = ''
+        return self._header
+    
+    def _set_header(self, header):
+        self._header = header
+    
+    # B/C header was added - ensure existing teaser portlets still work.
+    header = property(_get_header, _set_header)
+    
     @property
     def title(self):
-        return _(u'portlet_teaser_title', default=u"Teaser")
+        return self.header or _(u'portlet_teaser_title', default=u"Teaser")
 
 
 class AddForm(base.AddForm):

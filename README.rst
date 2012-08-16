@@ -19,5 +19,5 @@ or subject filter to assign teasers to those portlets.
 Copyright
 ---------
 
-Johannes Raggam, BlueDynamics Alliance - Author
-Robert Niederreiter, BlueDynamics Alliance - Contributions
+- Johannes Raggam, BlueDynamics Alliance - Author
+- Robert Niederreiter, BlueDynamics Alliance - Contributions

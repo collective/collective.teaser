@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2.2dev
+------
+
+- Add portlet header for teaser portlet.
+  [rnix, 2012-08-16]
+
 2.1
 ---
 
