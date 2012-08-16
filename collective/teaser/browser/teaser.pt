@@ -1,12 +1,49 @@
-<tal:rep repeat="teaser options/options/teasers">
-  <dd class="portletItem">
-    <br tal:condition="python:repeat['teaser'].index()>0"/>
-    <a href="" tal:attributes="href teaser/url">
-      <h3 tal:condition="teaser/title" tal:content="teaser/title" />
-      <tal:cond condition="teaser/image">
-        <tal:img replace="structure teaser/image" />
-      </tal:cond>
-      <p tal:condition="teaser/description" tal:content="teaser/description"/>
-    </a>
+<tal:onecol condition="python:options['options'].display_columns == 1">
+  <tal:rep repeat="teaser options/options/teasers">
+    <dd class="portletItem">
+      <br tal:condition="python:repeat['teaser'].index() > 0"/>
+      <a href="" tal:attributes="href teaser/url">
+        <h3 tal:condition="teaser/title" tal:content="teaser/title" />
+        <tal:cond condition="teaser/image">
+          <tal:img replace="structure teaser/image" />
+        </tal:cond>
+        <p tal:condition="teaser/description" tal:content="teaser/description"/>
+      </a>
+    </dd>
+  </tal:rep>
+</tal:onecol>
+
+<tal:twocol condition="python:options['options'].display_columns == 2">
+  <dd class="portletItem"
+      tal:define="teasers options/options/teasers"
+      tal:condition="teasers">
+    <table class="teasertable"
+           tal:define="rows python: len(teasers) / 2 + 1">
+      <tr tal:repeat="row python:range(rows)">
+        <td tal:define="teaser python: teasers[row * 2]"
+            class="leftcol">
+          <a href="" tal:attributes="href teaser/url">
+            <h3 tal:condition="teaser/title" tal:content="teaser/title" />
+            <tal:cond condition="teaser/image">
+              <tal:img replace="structure teaser/image" />
+            </tal:cond>
+            <p tal:condition="teaser/description" tal:content="teaser/description"/>
+          </a>
+        </td>
+        <td tal:define="fill python: len(teasers) > row * 2 + 1"
+            class="rightcol">
+          <tal:teaser define="teaser python: fill and teasers[row * 2 + 1] or None"
+                      condition="teaser">
+            <a href="" tal:attributes="href teaser/url">
+              <h3 tal:condition="teaser/title" tal:content="teaser/title" />
+              <tal:cond condition="teaser/image">
+                <tal:img replace="structure teaser/image" />
+              </tal:cond>
+              <p tal:condition="teaser/description" tal:content="teaser/description"/>
+            </a>
+          </tal:teaser>
+        </td>
+      </tr>
+    </table>
   </dd>
-</tal:rep>
+</tal:twocol>

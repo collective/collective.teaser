@@ -4,6 +4,9 @@ Changelog
 2.2dev
 ------
 
+- Add display_columns for teaser portlet.
+  [rnix, 2012-08-16]
+
 - Add portlet header for teaser portlet.
   [rnix, 2012-08-16]
 

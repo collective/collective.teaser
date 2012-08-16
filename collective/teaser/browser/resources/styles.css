@@ -4,3 +4,17 @@
     padding-left: 20px !important; 
     background:url("++resource++collective-teaser-resources/teaser_icon.png") no-repeat scroll 0 0 transparent;
 }
+.teasertable {
+    width:100%;
+    border-spacing:0;
+    border-collapse:collapse;
+}
+.teasertable td {
+    vertical-align:middle;
+}
+.teasertable td.leftcol {
+    text-align:left;
+}
+.teasertable td.rightcol {
+    text-align:right;
+}

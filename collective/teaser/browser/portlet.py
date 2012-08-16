@@ -7,6 +7,10 @@ from zope.component import (
 )
 from zope.interface import implements
 from zope import schema
+from zope.schema.vocabulary import (
+    SimpleVocabulary,
+    SimpleTerm,
+)
 from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 from zope.formlib import form
 from plone.memoize import ram
@@ -92,7 +96,11 @@ class TeaserRenderer(object):
 
     def __call__(self):
         return self.template(options=self)
-
+    
+    @property
+    def display_columns(self):
+        return int(self.data.display_columns)
+    
     @instance_property
     def teasers(self):
         return get_teasers(self.context, self.data, self.request)
@@ -108,12 +116,26 @@ class AjaxTeaser(BrowserView):
         return get_portlet_assingment(self.context, self.request.get('uid'))
 
 
+display_columns = SimpleVocabulary([
+    SimpleTerm(value=u'1', title=_(u'One')),
+    SimpleTerm(value=u'2', title=_(u'Two'))])
+
+
 class ITeaserPortlet(IPortletDataProvider):
 
     header = schema.TextLine(
         title=_(u"Portlet header"),
         description=_(u"Title of the rendered portlet"),
         required=False)
+    
+    display_columns = schema.Choice(
+        title=_(u'portlet_label_display_columns', default=u'Number of columns'),
+        description=_(u'portlet_help_display_columns',
+                      default=u'Select number of columns to display'),
+        vocabulary=display_columns,
+        default=u'1',
+        required=True,
+        )
     
     importance_levels = schema.Tuple(
         title=_(u'portlet_label_importance_levels',
@@ -238,8 +260,10 @@ class Assignment(base.Assignment):
             show_title=True,
             show_description=False,
             search_base=None,
-            header=u''):
+            header=u'',
+            display_columns=u'1'):
         self._header = header
+        self._display_columns = display_columns
         self.importance_levels = importance_levels
         self.keywords_filter = keywords_filter
         self.teaser_scale = teaser_scale
@@ -252,7 +276,7 @@ class Assignment(base.Assignment):
     
     def _get_header(self):
         if not hasattr(self, '_header'):
-            self._header = ''
+            self._header = u''
         return self._header
     
     def _set_header(self, header):
@@ -260,6 +284,18 @@ class Assignment(base.Assignment):
     
     # B/C header was added - ensure existing teaser portlets still work.
     header = property(_get_header, _set_header)
+    
+    def _get_display_columns(self):
+        if not hasattr(self, '_display_columns'):
+            self._display_columns = u'1'
+        return self._display_columns
+    
+    def _set_display_columns(self, columns):
+        self._display_columns = columns
+    
+    # B/C display_columns was added - ensure existing teaser portlets still
+    #     work.
+    display_columns = property(_get_display_columns, _set_display_columns)
     
     @property
     def title(self):
