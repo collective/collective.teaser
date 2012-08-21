@@ -18,7 +18,8 @@
       tal:define="teasers options/options/teasers"
       tal:condition="teasers">
     <table class="teasertable"
-           tal:define="rows python: len(teasers) / 2 + 1">
+           tal:define="rows python: len(teasers) / 2;
+                       rows python: rows % 2 != 1 and rows + 1 or rows">
       <tr tal:repeat="row python:range(rows)">
         <td tal:define="teaser python: teasers[row * 2]"
             class="leftcol">
