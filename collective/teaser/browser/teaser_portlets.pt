@@ -1,6 +1,6 @@
 <div id="portlets-teaser"
      class="row"
-     i18n:domain="plone"
+     i18n:domain="collective.teaser"
      tal:condition="view/display">
     <tal:block>
         <div class="portlets-teaser-wrapper"
@@ -9,6 +9,7 @@
 </div>
 
 <div class="manageTeaserPortletsLink"
+     i18n:domain="collective.teaser"
      tal:condition="view/canManagePortlets">
     <a href="" 
        class="managePortletsFallback"

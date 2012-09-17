@@ -1,6 +1,7 @@
 <tal:comment tal:replace="nothing">
-We make our own portlet manger renderer instead of parasitizing the one used by Plone's columns
-This means we can get rid of the "manage portlets" link that comes along with all the other Plone column goodness
+We make our own portlet manger renderer instead of parasitizing the one used by
+Plone's columns This means we can get rid of the "manage portlets" link that
+comes along with all the other Plone column goodness
 </tal:comment>
 
 <tal:block repeat="portlet options/portlets">

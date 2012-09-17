@@ -1,4 +1,3 @@
-from zope.i18nmessageid import MessageFactory
 from Products.CMFCore import utils
 try:
     from Products.LinguaPlone import public  as atapi
@@ -6,9 +5,6 @@ except ImportError:
     # No multilingual support
     from Products.Archetypes import atapi
 from collective.teaser import config
-
-
-MsgFact = MessageFactory(config.PROJECTNAME)
 
 
 def initialize(context):

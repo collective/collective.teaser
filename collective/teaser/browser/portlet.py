@@ -13,6 +13,7 @@ from zope.schema.vocabulary import (
 )
 from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 from zope.formlib import form
+from zope.i18nmessageid import MessageFactory
 from plone.memoize import ram
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.cache import get_language
@@ -31,8 +32,9 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces import IPloneSiteRoot
 from collective.teaser.config import DEFAULT_IMPORTANCE
-from collective.teaser import MsgFact as _
 from collective.teaser.browser.common import get_teasers
+
+_ = MessageFactory('collective.teaser')
 
 
 def render_cachekey(fun, self):
@@ -100,6 +102,16 @@ class TeaserRenderer(object):
     @property
     def display_columns(self):
         return int(self.data.display_columns)
+    
+    @property
+    def table_rows(self):
+        count = len(self.teasers)
+        if count == 1:
+            return count
+        rows = count / 2
+        if count % 2 != 0:
+            rows += 1
+        return rows
     
     @instance_property
     def teasers(self):
@@ -184,7 +196,7 @@ class ITeaserPortlet(IPortletDataProvider):
     ajaxified = schema.Bool(
         title=_(u'portlet_label_ajaxified', default=u'Load Teasers via AJAX?'),
         description=_(u'portlet_help_ajaxified',
-                      default=u'Whether teaser is loaded deferred via ajax.'
+                      default=u'Whether teaser is loaded deferred via ajax '
                               u'or directly.'),
         default=True,
         required=False,

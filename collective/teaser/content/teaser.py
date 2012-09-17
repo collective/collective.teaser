@@ -1,8 +1,9 @@
 from zope.interface import implements
+from zope.i18nmessageid import MessageFactory
 from AccessControl import ClassSecurityInfo
 from Products.CMFCore.permissions import View
 try:
-    from Products.LinguaPlone import public  as atapi
+    from Products.LinguaPlone import public as atapi
 except ImportError:
     # No multilingual support
     from Products.Archetypes import atapi
@@ -11,12 +12,11 @@ from Products.ATContentTypes.content import base, image, schemata
 from Products.ATContentTypes.lib.historyaware import HistoryAwareMixin
 from collective.teaser.interfaces import ITeaser
 from collective.teaser.config import PROJECTNAME, DEFAULT_IMPORTANCE
-from collective.teaser import MsgFact as _
 from plone.app.imaging.utils import getAllowedSizes
 
+_ = MessageFactory('collective.teaser')
 
 allowed_sizes = getAllowedSizes()
-
 
 type_schema = schemata.ATContentTypeSchema.copy() + atapi.Schema((
 

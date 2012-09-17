@@ -20,4 +20,5 @@ Copyright
 ---------
 
 - Johannes Raggam, BlueDynamics Alliance - Author
+
 - Robert Niederreiter, BlueDynamics Alliance - Contributions

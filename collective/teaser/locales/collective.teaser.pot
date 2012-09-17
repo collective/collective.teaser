@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-08-31 11:19+0000\n"
+"POT-Creation-Date: 2012-09-17 08:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,35 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.teaser\n"
 
+#: ./browser/z3cformportlet.py:15
+msgid "Configure portlet"
+msgstr ""
+
+#: ./browser/z3cformportlet.py:59
+msgid "Modify portlet"
+msgstr ""
+
+#: ./browser/portlet.py:132
+msgid "One"
+msgstr ""
+
+#: ./browser/portlet.py:139
+msgid "Portlet header"
+msgstr ""
+
+#: ./browser/portlet.py:140
+msgid "Title of the rendered portlet"
+msgstr ""
+
+#: ./browser/portlet.py:133
+msgid "Two"
+msgstr ""
+
+#. Default: "add them to the folder itself"
+#: ./browser/manage_teaser_portlets.pt:40
+msgid "add_them_to_the_folder_itself"
+msgstr ""
+
 #. Default: "Teaser are flyers, advertisements or the like, which link to teaseed content internally or externally."
 #: ./profiles/default/types/Teaser.xml
 msgid "content_description"
@@ -27,153 +56,207 @@ msgstr ""
 msgid "content_title"
 msgstr ""
 
-#. Default: "Alternative image for a different layout. E.g. in portrait instead of landscape layout. A portlet can prefer alternative layouts."
-#: ./content/teaser.py:37
-msgid "help_altimage"
-msgstr ""
-
 #. Default: "Image to display as teaser."
-#: ./content/teaser.py:28
+#: ./content/teaser.py:29
 msgid "help_image"
 msgstr ""
 
 #. Default: "Select the importance of the teaser. The frequency of the teaser will be set accordingly."
-#: ./content/teaser.py:76
+#: ./content/teaser.py:75
 msgid "help_importance"
 msgstr ""
 
 #. Default: "Url to external content. For internal content, use the field above. Use the form http://WEBSITE.TLD/"
-#: ./content/teaser.py:64
+#: ./content/teaser.py:59
 msgid "help_link_external"
 msgstr ""
 
 #. Default: "Link to internal content. For external content, use the External Link field."
-#: ./content/teaser.py:48
+#: ./content/teaser.py:42
 msgid "help_link_internal"
 msgstr ""
 
 #. Default: "High importance"
-#: ./vocabularies.py:9
+#: ./vocabularies.py:13
 msgid "importance_high"
 msgstr ""
 
 #. Default: "Highest importance"
-#: ./vocabularies.py:8
+#: ./vocabularies.py:12
 msgid "importance_highest"
 msgstr ""
 
 #. Default: "Low importance"
-#: ./vocabularies.py:11
+#: ./vocabularies.py:15
 msgid "importance_low"
 msgstr ""
 
 #. Default: "Normal importance"
-#: ./vocabularies.py:10
+#: ./vocabularies.py:14
 msgid "importance_normal"
 msgstr ""
 
-#. Default: "Alternative Image"
-#: ./browser/teaser_view.pt:18
-#: ./content/teaser.py:36
-msgid "label_altimage"
+#. Default: "Cancel"
+#: ./browser/z3cformportlet.py:44
+msgid "label_cancel"
 msgstr ""
 
 #. Default: "Image"
-#: ./browser/teaser_view.pt:14
-#: ./content/teaser.py:27
+#: ./browser/teaser_view.pt:15
+#: ./content/teaser.py:28
 msgid "label_image"
 msgstr ""
 
 #. Default: "Importance"
-#: ./browser/teaser_view.pt:32
-#: ./content/teaser.py:75
+#: ./browser/teaser_view.pt:47
+#: ./content/teaser.py:74
 msgid "label_importance"
 msgstr ""
 
 #. Default: "External Link"
-#: ./browser/teaser_view.pt:26
-#: ./content/teaser.py:63
+#: ./browser/teaser_view.pt:35
+#: ./content/teaser.py:58
 msgid "label_link_external"
 msgstr ""
 
 #. Default: "Internal Link"
-#: ./browser/teaser_view.pt:22
-#: ./content/teaser.py:47
+#: ./browser/teaser_view.pt:25
+#: ./content/teaser.py:41
 msgid "label_link_internal"
 msgstr ""
 
+#. Default: "Save"
+#: ./browser/z3cformportlet.py:33
+msgid "label_save"
+msgstr ""
+
+#. Default: "Manage teaser portlets"
+#: ./browser/manage_teaser_portlets.pt:46
+msgid "manage_portlets_above_content"
+msgstr ""
+
+#. Default: "Add, edit or remove teaser portlets"
+#: ./browser/teaser_portlets.pt:14
+msgid "manage_portlets_teaser_link"
+msgstr ""
+
+#. Default: "If you add portlets here, they will only appear on this item. If instead you want portlets to appear on all items in this folder, ${manage-portlets_teaser_link}"
+#: ./browser/manage_teaser_portlets.pt:37
+msgid "message_warning_above_content_area_dd"
+msgstr ""
+
+#. Default: "Is this really where you want to add portlets above the content?"
+#: ./browser/manage_teaser_portlets.pt:29
+msgid "message_warning_above_content_area_dt"
+msgstr ""
+
 #. Default: "This portlet shows teasers."
-#: ./browser/common.py:180
+#: ./browser/portlet.py:321
 msgid "portlet_help_add"
 msgstr ""
 
-#. Default: "If an alternative image is defined for the teaser, use this one. Alternative images can have a different layout, e.g. portrait instead of landscape."
-#: ./browser/common.py:114
-msgid "portlet_help_altimage"
+#. Default: "Whether teaser is loaded deferred via ajax.or directly."
+#: ./browser/portlet.py:198
+msgid "portlet_help_ajaxified"
+msgstr ""
+
+#. Default: "Select number of columns to display"
+#: ./browser/portlet.py:145
+msgid "portlet_help_display_columns"
 msgstr ""
 
 #. Default: "Select, which image scale should be used for the portlet."
-#: ./browser/common.py:107
-msgid "portlet_help_image_size"
+#: ./browser/portlet.py:179
+msgid "portlet_help_image_scale"
 msgstr ""
 
 #. Default: "Select which importance levels the portlet should show."
-#: ./browser/common.py:97
+#: ./browser/portlet.py:155
 msgid "portlet_help_importance_levels"
 msgstr ""
 
+#. Default: "Select which teasers with specific keywords should be shown. Select none to order to show any teasers."
+#: ./browser/portlet.py:167
+msgid "portlet_help_keywords_filter"
+msgstr ""
+
 #. Default: "Define the maximum number of teasers, which are displayed in this portlet"
-#: ./browser/common.py:131
+#: ./browser/portlet.py:189
 msgid "portlet_help_num_teasers"
 msgstr ""
 
+#. Default: "Select teaser search base folder"
+#: ./browser/portlet.py:225
+msgid "portlet_help_search_base"
+msgstr ""
+
 #. Default: "Show the description of the teaser as text below the image."
-#: ./browser/common.py:126
+#: ./browser/portlet.py:216
 msgid "portlet_help_show_description"
 msgstr ""
 
 #. Default: "Show the title of the teaser."
-#: ./browser/common.py:121
+#: ./browser/portlet.py:208
 msgid "portlet_help_show_title"
 msgstr ""
 
 #. Default: "Add portlet to show teasers."
-#: ./browser/common.py:179
+#: ./browser/portlet.py:320
 msgid "portlet_label_add"
 msgstr ""
 
-#. Default: "Prefer alternative image"
-#: ./browser/common.py:113
-msgid "portlet_label_altimage"
+#. Default: "Load Teasers via AJAX?"
+#: ./browser/portlet.py:197
+msgid "portlet_label_ajaxified"
 msgstr ""
 
-#. Default: "Image Size"
-#: ./browser/common.py:106
-msgid "portlet_label_image_size"
+#. Default: "Number of columns"
+#: ./browser/portlet.py:144
+msgid "portlet_label_display_columns"
+msgstr ""
+
+#. Default: "Image Scale"
+#: ./browser/portlet.py:178
+msgid "portlet_label_image_scale"
 msgstr ""
 
 #. Default: "Importance Levels"
-#: ./browser/common.py:96
+#: ./browser/portlet.py:153
 msgid "portlet_label_importance_levels"
 msgstr ""
 
+#. Default: "Keywords Filter"
+#: ./browser/portlet.py:165
+msgid "portlet_label_keywords_filter"
+msgstr ""
+
 #. Default: "Number of teasers"
-#: ./browser/common.py:130
+#: ./browser/portlet.py:188
 msgid "portlet_label_num_teasers"
 msgstr ""
 
+#. Default: "Search base"
+#: ./browser/portlet.py:224
+msgid "portlet_label_search_base"
+msgstr ""
+
 #. Default: "Show description"
-#: ./browser/common.py:125
+#: ./browser/portlet.py:215
 msgid "portlet_label_show_description"
 msgstr ""
 
 #. Default: "Show title"
-#: ./browser/common.py:120
+#: ./browser/portlet.py:207
 msgid "portlet_label_show_title"
 msgstr ""
 
 #. Default: "Teaser"
-#: ./browser/common.py:174
+#: ./browser/portlet.py:314
 msgid "portlet_teaser_title"
+msgstr ""
+
+#. Default: "Return"
+#: ./browser/manage_teaser_portlets.pt:52
+msgid "return_to_view"
 msgstr ""
 
