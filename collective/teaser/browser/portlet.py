@@ -63,6 +63,7 @@ def render_cachekey(fun, self):
 
 
 def get_portlet_assingment(context, uid):
+    context_orgin = context
     for name in [u"plone.leftcolumn", u"plone.rightcolumn",
                  u"collective.teaser.portletmanager"]:
         manager = getUtility(IPortletManager, name=name)
@@ -72,7 +73,7 @@ def get_portlet_assingment(context, uid):
                     if ITeaserPortlet.providedBy(assignment):
                         if uid == str(assignment.uid):
                             return assignment
-        context = aq_inner(context)
+        context = aq_inner(context_orgin)
         while True:
             try:
                 assignment_mapping = getMultiAdapter((context, manager),
@@ -86,6 +87,7 @@ def get_portlet_assingment(context, uid):
             if IPloneSiteRoot.providedBy(context):
                 break
             context = aq_parent(aq_inner(context))
+    raise KeyError(u"Portlet assignment for uid '%s' not found." % uid)
 
 
 class TeaserRenderer(object):
