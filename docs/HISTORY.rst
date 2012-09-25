@@ -5,6 +5,12 @@ Changelog
 2.2dev
 ------
 
+- Fix use in conjunction with ``collective.lineage``.
+  [rnix, 2012-09-25]
+
+- Fix portlet assignment lookup.
+  [rnix, 2012-09-25]
+
 - Add ``display_columns`` for teaser portlet.
   [rnix, 2012-08-16]
 

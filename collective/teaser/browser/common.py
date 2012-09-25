@@ -19,9 +19,11 @@ def _teaserlist(context, data):
     if data.keywords_filter:
         query['Subject'] = data.keywords_filter
 
+    portal = getToolByName(context, 'portal_url').getPortalObject()
+    ppath = portal.getPhysicalPath()
+    query['path'] = {'query': '/'.join(ppath)}
     if data.search_base:
-        portal = getToolByName(context, 'portal_url').getPortalObject()
-        query['path'] = {'query': '%s%s' % ('/'.join(portal.getPhysicalPath()), data.search_base)}
+        query['path'] = {'query': '%s%s' % ('/'.join(ppath), data.search_base)}
 
     # show only published and not expired, even for admins
     query['review_state'] = 'published'
