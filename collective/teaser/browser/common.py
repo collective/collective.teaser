@@ -67,6 +67,7 @@ def get_teasers(context, data, request):
         img_text_part = not show_desc and teaser.Description() or ''
         img_text = '%s%s' % (teaser.title.encode('utf-8'),
                              img_text_part and ' - %s' % img_text_part or '')
+        img_text = img_text.decode('utf-8') # image field wants unicode
         teaser_list.append({
             'title': show_title and teaser.title or None,
             'image': getattr(teaser, 'image', False) \
