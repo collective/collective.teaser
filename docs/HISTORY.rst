@@ -5,6 +5,9 @@ Changelog
 2.2dev
 ------
 
+- Fix Unicode.
+  [rnix, 2012-09-26]
+
 - Fix use in conjunction with ``collective.lineage``.
   [rnix, 2012-09-25]
 

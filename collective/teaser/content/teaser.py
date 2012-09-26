@@ -97,7 +97,7 @@ class Teaser(base.ATCTContent, image.ATCTImageTransform, HistoryAwareMixin):
         """Generate image tag using the api of the ImageField
         """
         if 'title' not in kwargs:
-            kwargs['title'] = self.title
+            kwargs['title'] = self.title.encode('utf-8')
         return self.getField('image').tag(self, **kwargs)
 
 atapi.registerType(Teaser, PROJECTNAME)
