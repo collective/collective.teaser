@@ -2,8 +2,8 @@
 Changelog
 =========
 
-2.2dev
-------
+2.2
+---
 
 - Fix Unicode.
   [rnix, 2012-09-26]
