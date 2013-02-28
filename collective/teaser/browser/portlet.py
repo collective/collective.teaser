@@ -14,7 +14,8 @@ from zope.schema.vocabulary import (
 from zope.pagetemplate.pagetemplatefile import PageTemplateFile
 from zope.formlib import form
 from zope.i18nmessageid import MessageFactory
-from plone.memoize import ram
+from plone.memoize.view import memoize
+#from plone.memoize import ram
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.app.portlets.cache import get_language
 from plone.app.portlets.portlets import base
@@ -100,11 +101,11 @@ class TeaserRenderer(object):
 
     def __call__(self):
         return self.template(options=self)
-    
+
     @property
     def display_columns(self):
         return int(self.data.display_columns)
-    
+
     @property
     def table_rows(self):
         count = len(self.teasers)
@@ -114,7 +115,7 @@ class TeaserRenderer(object):
         if count % 2 != 0:
             rows += 1
         return rows
-    
+
     @instance_property
     def teasers(self):
         return get_teasers(self.context, self.data, self.request)
@@ -141,7 +142,7 @@ class ITeaserPortlet(IPortletDataProvider):
         title=_(u"Portlet header"),
         description=_(u"Title of the rendered portlet"),
         required=False)
-    
+
     display_columns = schema.Choice(
         title=_(u'portlet_label_display_columns', default=u'Number of columns'),
         description=_(u'portlet_help_display_columns',
@@ -150,7 +151,7 @@ class ITeaserPortlet(IPortletDataProvider):
         default=u'1',
         required=True,
         )
-    
+
     importance_levels = schema.Tuple(
         title=_(u'portlet_label_importance_levels',
                 default=u'Importance Levels'),
@@ -242,7 +243,8 @@ class Renderer(base.Renderer):
     # it's removed from the available teasers, since it's already in the
     # taken_teasers list. As a result, no teaser is shown. Therefore, we cache
     # the render call.
-    @ram.cache(render_cachekey) # cached per request
+    #@ram.cache(render_cachekey) # cached per request
+    @memoize
     def renderer(self):
         return TeaserRenderer(self.context, self.data, self.request)
 
@@ -253,7 +255,7 @@ class Renderer(base.Renderer):
     @property
     def rendered_teasers(self):
         return self.renderer()
-    
+
     def has_header(self):
         return bool(self.data.header)
 
@@ -287,30 +289,30 @@ class Assignment(base.Assignment):
         self.show_description=show_description
         self.search_base = search_base
         self.uid = uuid.uuid4()
-    
+
     def _get_header(self):
         if not hasattr(self, '_header'):
             self._header = u''
         return self._header
-    
+
     def _set_header(self, header):
         self._header = header
-    
+
     # B/C header was added - ensure existing teaser portlets still work.
     header = property(_get_header, _set_header)
-    
+
     def _get_display_columns(self):
         if not hasattr(self, '_display_columns'):
             self._display_columns = u'1'
         return self._display_columns
-    
+
     def _set_display_columns(self, columns):
         self._display_columns = columns
-    
+
     # B/C display_columns was added - ensure existing teaser portlets still
     #     work.
     display_columns = property(_get_display_columns, _set_display_columns)
-    
+
     @property
     def title(self):
         return self.header or _(u'portlet_teaser_title', default=u"Teaser")

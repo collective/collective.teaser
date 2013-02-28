@@ -2,6 +2,16 @@
 Changelog
 =========
 
+2.3dev (unreleased)
+-------------------
+
+- Don't restrict to only published teasers. Also show unpublished for users
+  with appropriate permissions.
+  [thet]
+
+- Just cache portlet rendering on request instead of custom cachekey function.
+  [thet]
+
 2.2
 ---
 

@@ -25,8 +25,9 @@ def _teaserlist(context, data):
     if data.search_base:
         query['path'] = {'query': '%s%s' % ('/'.join(ppath), data.search_base)}
 
-    # show only published and not expired, even for admins
-    query['review_state'] = 'published'
+    ## show only published and not expired, even for admins
+    #query['review_state'] = 'published'
+    # Restrict to publishing and expiration date
     query['effectiveRange'] = DateTime()
     brains = cat(**query)
 
