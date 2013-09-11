@@ -5,6 +5,10 @@ Changelog
 2.3dev (unreleased)
 -------------------
 
+- Add an upgrade helper for old, pre 2.0 collective.teaser portlets by adding
+  a dummy Assignment class to common.py.
+  [thet]
+
 - Don't restrict to only published teasers. Also show unpublished for users
   with appropriate permissions.
   [thet]

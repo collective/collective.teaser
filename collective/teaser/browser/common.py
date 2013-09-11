@@ -3,6 +3,12 @@ import random
 from Acquisition import aq_inner
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
+from plone.app.portlets.portlets import base
+
+
+class Assignment(base.Assignment):
+    """Ignore me, I'm a portlet upgrade helper to avoid portlet breaks because
+    of persistant failures."""
 
 
 def _teaserlist(context, data):
