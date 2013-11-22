@@ -2,8 +2,8 @@
 Changelog
 =========
 
-2.3dev (unreleased)
--------------------
+2.3 (2013-11-23)
+----------------
 
 - Add an upgrade helper for old, pre 2.0 collective.teaser portlets by adding
   a dummy Assignment class to common.py.
