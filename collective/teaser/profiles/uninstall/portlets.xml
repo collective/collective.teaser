@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlets xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          i18n:domain="collective.teaser">
+  <portletmanager
+      remove="True" 
+      name="collective.teaser.portletmanager"
+      type="collective.teaser.interfaces.ITeaserPortletManager" />
+  <portlet remove="True" addview="collective.teaser.teaser_portlet"/>
+</portlets>

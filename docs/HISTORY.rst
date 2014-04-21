@@ -2,6 +2,13 @@
 Changelog
 =========
 
+2.4 (unreleased)
+----------------
+
+- Add uninstallation profile.
+  [thet]
+
+
 2.3 (2013-11-23)
 ----------------
 

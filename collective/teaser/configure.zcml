@@ -20,19 +20,22 @@
 
   <utility
       component=".vocabularies.ImportanceVocabulary"
-      name="collective.teaser.ImportanceVocabulary"
-  />
+      name="collective.teaser.ImportanceVocabulary"/>
   <utility
       component=".vocabularies.ImageScaleVocabulary"
-      name="collective.teaser.ImageScaleVocabulary"
-  />
+      name="collective.teaser.ImageScaleVocabulary"/>
 
   <genericsetup:registerProfile
       name="default"
       title="collective.teaser"
       directory="profiles/default"
       description="Installation and configuration."
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-  />
+      provides="Products.GenericSetup.interfaces.EXTENSION"/>
+  <genericsetup:registerProfile
+      name="uninstall"
+      title="collective.teaser"
+      directory="profiles/uninstall"
+      description="Uninstallation of collective.teaser."
+      provides="Products.GenericSetup.interfaces.EXTENSION"/>
 
 </configure>
