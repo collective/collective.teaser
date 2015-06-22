@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from zope.component import getMultiAdapter
+from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
-from Products.CMFCore.utils import getToolByName
+from zope.component import getMultiAdapter
 
 
 class TeaserPortletsViewlet(ViewletBase):
@@ -18,10 +18,13 @@ class TeaserPortletsViewlet(ViewletBase):
             self.canManagePortlets = False
             return
         context_state = getMultiAdapter(
-            (self.context, self.request), name=u'plone_context_state')
+            (self.context, self.request),
+            name=u'plone_context_state'
+        )
         self.manageUrl = '%s/%s' % (context_state.view_url(), self.manage_view)
         # This is the way it's done in plone.app.portlets.manager, so we'll
         # do the same
-        mt = getToolByName(self.context, 'portal_membership')
-        self.canManagePortlets = mt.checkPermission(
-            'Portlets: Manage portlets', self.context)
+        self.canManagePortlets = api.user.has_permission(
+            permission='Portlets: Manage portlets',
+            obj=self.context
+        )

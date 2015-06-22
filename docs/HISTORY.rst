@@ -5,6 +5,9 @@ Changelog
 2.4 (unreleased)
 ----------------
 
+- Code style fixes
+  [jensens]
+
 - Add uninstallation profile.
   [thet]
 

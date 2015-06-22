@@ -1,15 +1,12 @@
-import unittest
-
-#from zope.testing import doctestunit
-#from zope.component import testing
-from Testing import ZopeTestCase as ztc
-
+# -*- coding: utf-8 -*-
 from Products.Five import fiveconfigure
 from Products.PloneTestCase import PloneTestCase as ptc
 from Products.PloneTestCase.layer import PloneSite
-ptc.setupPloneSite()
-
+from Testing import ZopeTestCase as ztc
 import collective.teaser
+import unittest
+
+ptc.setupPloneSite()
 
 
 class TestCase(ptc.PloneTestCase):
@@ -31,21 +28,21 @@ def test_suite():
     return unittest.TestSuite([
 
         # Unit tests
-        #doctestunit.DocFileSuite(
+        # doctestunit.DocFileSuite(
         #    'README.txt', package='collective.teaser',
         #    setUp=testing.setUp, tearDown=testing.tearDown),
 
-        #doctestunit.DocTestSuite(
+        # doctestunit.DocTestSuite(
         #    module='collective.teaser.mymodule',
         #    setUp=testing.setUp, tearDown=testing.tearDown),
 
 
         # Integration tests that use PloneTestCase
-        #ztc.ZopeDocFileSuite(
+        # ztc.ZopeDocFileSuite(
         #    'README.txt', package='collective.teaser',
         #    test_class=TestCase),
 
-        #ztc.FunctionalDocFileSuite(
+        # ztc.FunctionalDocFileSuite(
         #    'browser.txt', package='collective.teaser',
         #    test_class=TestCase),
 

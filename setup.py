@@ -1,10 +1,17 @@
-from setuptools import setup, find_packages
+# -*- coding: utf-8 -*-
+from setuptools import find_packages
+from setuptools import setup
 import os
 
-version = '2.3'
-shortdesc = "Teaser/Banner content type for Plone"
+version = '2.3.dev0'
+shortdesc = "Teaser/ Banner content type for Plone"
 longdesc = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
-longdesc += '\n' + open(os.path.join(os.path.dirname(__file__), 'docs', 'HISTORY.rst')).read()
+longdesc += '\n' + open(
+    os.path.join(
+        os.path.dirname(__file__),
+        'docs',
+        'HISTORY.rst')
+).read()
 
 
 setup(name='collective.teaser',
@@ -27,12 +34,12 @@ setup(name='collective.teaser',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          'setuptools',
-          # -*- Extra requirements: -*-
-          'plone.formwidget.contenttree',
           'archetypes.referencebrowserwidget',
-          'plone.app.portlets',
           'node',
+          'plone.api',
+          'plone.app.portlets',
+          'plone.formwidget.contenttree',
+          'setuptools',
       ],
       entry_points="""
       # -*- Entry points: -*-
